@@ -1,0 +1,15 @@
+.menu__items{
+    background-color: rgb(153, 153, 153);
+    text-align: right;
+}
+
+.menu__item{
+    padding: 10px 10px ;
+    font-size: 21px;
+    color: white;
+    text-decoration: none;
+}
+
+.menu__item:hover{
+    color: thistle;
+}
