@@ -1,0 +1,8 @@
+.app {
+  text-align: center;
+}
+
+.app__content{
+  background-color: rgb(221, 221, 221);
+  color: black;
+}

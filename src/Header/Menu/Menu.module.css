@@ -10,5 +10,13 @@
 }
 
 .menu__item:hover{
+    color: gold;
+}
+
+.activeLink{
     color: thistle;
+}
+
+.activeLink:hover{
+    color: gold;
 }
