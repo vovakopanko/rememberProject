@@ -1,15 +1,12 @@
-import React from 'react';
-import s from './Friends.module.css';
+import React from "react";
 
-const Friends = () => {
-    return (
-        <div className={s.app__header}>
-           FRIENDS ONLINE:
-           <div>1</div>
-           <div>2</div>
-           <div>3</div>
-        </div>
-    )
-}
+const Friends = ({listFriends}) => {
+  return (
+    <div>
+      FRIENDS ONLINE:
+      {listFriends}
+    </div>
+  );
+};
 
 export default Friends;
