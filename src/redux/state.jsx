@@ -1,3 +1,6 @@
+let rerenderEntireTree = () => {
+};
+
 let state = {
   UsersName: [
     { name: "Egor", id: "1" },
@@ -13,6 +16,8 @@ let state = {
       id: "3",
     },
   ],
+  newTextInfo: "Write your message...",
+
   userFriends: [
     { id: "1", name: "Vova" },
     { id: "2", name: "Egor" },
@@ -25,11 +30,35 @@ let state = {
   ],
 };
 
-export let addNewMessage = (postMessage) => {
+export let addNewMessage = () => {
   let newMessage = {
-    id:"4",
-    message:postMessage,
-  }
+    id: "4",
+    message: state.newTextInfo,
+  };
   state.UserMessages.push(newMessage);
-}
+  rerenderEntireTree(state);
+};
+
+export let addNewPost = (postNewMessage) => {
+  let newPost = {
+    id: "4",
+    name: "Inkognito",
+    age: "21",
+    comment: postNewMessage,
+  };
+  state.postData.push(newPost);
+  state.newTextInfo = "";
+  rerenderEntireTree(state);
+};
+
+export let updateNewPost = (updateText) => {
+  state.newTextInfo = updateText;
+  rerenderEntireTree(state);
+};
+
 export default state;
+
+export const subscriber = (observer) => {
+  rerenderEntireTree = observer;
+};
+

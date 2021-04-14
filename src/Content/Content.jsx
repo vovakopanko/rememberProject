@@ -3,15 +3,16 @@ import s from "./Content.module.css";
 import sahara from "./../pictures/sahara.jpg";
 import Posts from "./Posts/Posts";
 
-const Content = ({ postData }) => {
+const Content = ({ postData, addPost }) => {
   let postsElementData = postData.map((post) => (
-    <Posts name={post.name} age={post.age} comment={post.comment} />
+    <Posts key={post.id} name={post.name} age={post.age} comment={post.comment} />
   ));
 
   let newTextPost = React.createRef();
   let addNewPost = () => {
     let text = newTextPost.current.value;
-    alert(text);
+    addPost(text);
+    newTextPost.current.value = "";
   };
 
   return (

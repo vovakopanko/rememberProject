@@ -9,14 +9,14 @@ import FriendsContainer from "./Friends/FriendsContainer";
 
 
 
-const App = ({ state,addNewMessage } ) => {
+const App = ({ state,addNewMessage,addNewPost,updateNewPost } ) => {
   return (
     <div className={s.app}>
       <Menu />
       <div className={s.app__content}>
         <Route
           path="/content"
-          render={() => <Content postData={state.postData} />}
+          render={() => <Content postData={state.postData} addPost={addNewPost} />}
         />
         <Route
           path="/friends"
@@ -29,6 +29,8 @@ const App = ({ state,addNewMessage } ) => {
               UsersName={state.UsersName}
               UserMessages={state.UserMessages}
               addNewMessage={addNewMessage}
+              newTextInfo={state.newTextInfo}
+              updateNewPost={updateNewPost}
             />
           )}
         />

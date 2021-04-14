@@ -14,7 +14,7 @@ let NameUser = (props) => {
   );
 };
 
-let MessageUser = ({message}) => {
+let MessageUser = ({ message }) => {
   return (
     <div className={s.app__header_message}>
       <div>{message}</div>
@@ -24,19 +24,23 @@ let MessageUser = ({message}) => {
 
 const MessageContainer = (props) => {
   let postNameElement = props.UsersName.map((name) => (
-    <NameUser name={name.name} id={name.id} />
+    <NameUser key={name.id} name={name.name} id={name.id} />
   ));
 
   let postMessageElement = props.UserMessages.map((message) => (
-    <MessageUser message={message.message} />
+    <MessageUser key={message.id} message={message.message} />
   ));
 
   let newMessageText = React.createRef();
 
   let messageData = () => {
+    props.addNewMessage();
+    // props.updateNewPost("");
+  };
+
+  let onChangeData = () => {
     let text = newMessageText.current.value;
-    props.addNewMessage(text);
-    debugger;
+    props.updateNewPost(text);
   };
 
   return (
@@ -46,6 +50,8 @@ const MessageContainer = (props) => {
         postNameElement={postNameElement}
         messageData={messageData}
         newMessageText={newMessageText}
+        newTextInfo={props.newTextInfo}
+        onChangeData={onChangeData}
       />
     </div>
   );

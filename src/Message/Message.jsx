@@ -6,6 +6,8 @@ const Message = ({
   postMessageElement,
   newMessageText,
   messageData,
+  newTextInfo,
+  onChangeData,
 }) => {
   return (
     <div className={s.app__header}>
@@ -15,7 +17,8 @@ const Message = ({
         {postMessageElement}
         <div>
           <textarea
-            placeholder="Write your message..."
+            onChange={onChangeData}
+            value={newTextInfo}
             ref={newMessageText}
           ></textarea>
           <div>
