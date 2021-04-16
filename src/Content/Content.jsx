@@ -3,31 +3,41 @@ import s from "./Content.module.css";
 import sahara from "./../pictures/sahara.jpg";
 import Posts from "./Posts/Posts";
 
-const Content = ({ postData, addPost }) => {
-  let postsElementData = postData.map((post) => (
-    <Posts key={post.id} name={post.name} age={post.age} comment={post.comment} />
+const Content = ({ usersPosts, userNewPost, addNewPost, updateNewPost }) => {
+  debugger;
+  let postsElementData = usersPosts.map((post) => (
+    <Posts
+      key={post.id}
+      name={post.name}
+      age={post.age}
+      comment={post.comment}
+    />
   ));
 
-  let newTextPost = React.createRef();
-  let addNewPost = () => {
-    let text = newTextPost.current.value;
-    addPost(text);
-    newTextPost.current.value = "";
+  let newPostText = React.createRef();
+  let addPost = () => {
+    addNewPost();
+  };
+
+  let onChangePost = () => {
+    let text = newPostText.current.value;
+    updateNewPost(text);
   };
 
   return (
     <div className={s.app__header}>
       <div>WELCOME DEAR</div>
       <img src={sahara} alt="sahara" />
-      <div>
-        <Posts />
-      </div>
       {postsElementData}
       <div>
-        <textarea placeholder="Write your message" ref={newTextPost}></textarea>
+        <textarea
+          ref={newPostText}
+          value={userNewPost}
+          onChange={onChangePost}
+        ></textarea>
       </div>
       <div>
-        <button onClick={addNewPost}>Click Me</button>
+        <button onClick={addPost}>SEND POST</button>
       </div>
     </div>
   );

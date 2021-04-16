@@ -22,25 +22,24 @@ let MessageUser = ({ message }) => {
   );
 };
 
-const MessageContainer = (props) => {
-  let postNameElement = props.UsersName.map((name) => (
+const MessageContainer = ({usersNames,usersMessages,addMessage,updateMessage,userNewMessage}) => {
+  let postNameElement = usersNames.map((name) => (
     <NameUser key={name.id} name={name.name} id={name.id} />
   ));
 
-  let postMessageElement = props.UserMessages.map((message) => (
+  let postMessageElement = usersMessages.map((message) => (
     <MessageUser key={message.id} message={message.message} />
   ));
 
   let newMessageText = React.createRef();
 
   let messageData = () => {
-    props.addNewMessage();
-    // props.updateNewPost("");
+    addMessage();
   };
 
   let onChangeData = () => {
     let text = newMessageText.current.value;
-    props.updateNewPost(text);
+    updateMessage(text);
   };
 
   return (
@@ -50,7 +49,7 @@ const MessageContainer = (props) => {
         postNameElement={postNameElement}
         messageData={messageData}
         newMessageText={newMessageText}
-        newTextInfo={props.newTextInfo}
+        userNewMessage={userNewMessage}
         onChangeData={onChangeData}
       />
     </div>

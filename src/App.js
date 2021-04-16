@@ -7,30 +7,39 @@ import { Route } from "react-router-dom";
 import MessageContainer from "./Message/MessageContainer";
 import FriendsContainer from "./Friends/FriendsContainer";
 
-
-
-const App = ({ state,addNewMessage,addNewPost,updateNewPost } ) => {
+const App = ({ store }) => {
   return (
     <div className={s.app}>
       <Menu />
       <div className={s.app__content}>
         <Route
-          path="/content"
-          render={() => <Content postData={state.postData} addPost={addNewPost} />}
+          path="/profile"
+          render={() => (
+            <Content
+              usersPosts={store.state.profilePage.usersPosts}
+              userNewPost={store.state.profilePage.userNewPost}
+              addNewPost={store.addNewPost.bind(store)}
+              updateNewPost={store.updateNewPost.bind(store)}
+            />
+          )}
         />
         <Route
           path="/friends"
-          render={() => <FriendsContainer userFriends={state.userFriends} />}
+          render={() => (
+            <FriendsContainer
+              userFriends={store.state.friendsPage.userFriends}
+            />
+          )}
         />
         <Route
           path="/message"
           render={() => (
             <MessageContainer
-              UsersName={state.UsersName}
-              UserMessages={state.UserMessages}
-              addNewMessage={addNewMessage}
-              newTextInfo={state.newTextInfo}
-              updateNewPost={updateNewPost}
+              usersNames={store.state.messagePage.usersNames}
+              usersMessages={store.state.messagePage.usersMessages}
+              userNewMessage={store.state.messagePage.userNewMessage}
+              addMessage={store.addMessage.bind(store)}
+              updateMessage={store.updateMessage.bind(store)}
             />
           )}
         />

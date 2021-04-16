@@ -6,8 +6,8 @@ const Message = ({
   postMessageElement,
   newMessageText,
   messageData,
-  newTextInfo,
   onChangeData,
+  userNewMessage,
 }) => {
   return (
     <div className={s.app__header}>
@@ -18,7 +18,7 @@ const Message = ({
         <div>
           <textarea
             onChange={onChangeData}
-            value={newTextInfo}
+            value={userNewMessage}
             ref={newMessageText}
           ></textarea>
           <div>

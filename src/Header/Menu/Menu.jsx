@@ -5,8 +5,8 @@ import s from "./Menu.module.css";
 const Menu = () => {
   return (
     <div className={s.menu__items}>
-      <NavLink className={s.menu__item} activeClassName={s.activeLink} to="/content">
-        Content
+      <NavLink className={s.menu__item} activeClassName={s.activeLink} to="/profile">
+        Profile
       </NavLink>
       <NavLink className={s.menu__item} activeClassName={s.activeLink} to="/friends">
         Friends

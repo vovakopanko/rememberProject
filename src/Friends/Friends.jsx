@@ -1,10 +1,10 @@
 import React from "react";
 
-const Friends = ({listFriends}) => {
+const Friends = ({ listFriends }) => {
   return (
     <div>
       FRIENDS ONLINE:
-      {listFriends}
+      <b>{listFriends}</b>
     </div>
   );
 };
