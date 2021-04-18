@@ -1,5 +1,5 @@
 let store = {
-  state: {
+  _state: {
     // Page Messages
     messagePage: {
       usersNames: [
@@ -37,39 +37,72 @@ let store = {
     },
   },
   // Method Page Messages
+  getState() {
+    return this._state;
+  },
+  _rerenderEntireTree() {},
   addMessage() {
     let newMessage = {
       id: "4",
-      message: store.state.messagePage.userNewMessage,
+      message: store._state.messagePage.userNewMessage,
     };
-    store.state.messagePage.usersMessages.push(newMessage);
-    this.rerenderEntireTree(this.state);
+    this._state.messagePage.usersMessages.push(newMessage);
+    this._rerenderEntireTree(this._state);
+    this._state.messagePage.userNewMessage = "";
   },
   updateMessage(updateText) {
-    this.state.messagePage.userNewMessage = updateText;
-    this.rerenderEntireTree(this.state);
+    this._state.messagePage.userNewMessage = updateText;
+    this._rerenderEntireTree(this._state);
   },
   // Method Page Profile
-  addNewPost() {
-    let newPost = {
-      id: "4",
-      name: "Inkognito",
-      age: "21",
-      comment: this.state.profilePage.userNewPost,
-    };
-    this.state.profilePage.usersPosts.push(newPost);
-    this.state.profilePage.userNewPost = "";
-    this.rerenderEntireTree(this.state);
-  },
-  updateNewPost(updatePost) {
-    this.state.profilePage.userNewPost = updatePost;
-    this.rerenderEntireTree(this.state);
-  },
+  // addNewPost() {
+  //   let newPost = {
+  //     id: "4",
+  //     name: "Inkognito",
+  //     age: "21",
+  //     comment: this._state.profilePage.userNewPost,
+  //   };
+  //   this._state.profilePage.usersPosts.push(newPost);
+  //   this._rerenderEntireTree(this._state);
+  //   this._state.profilePage.userNewPost = "";
+  // },
+  // updateNewPost(updatePost) {
+  //   this._state.profilePage.userNewPost = updatePost;
+  //   this._rerenderEntireTree(this._state);
+  // },
   // Other method
   subscriber(observer) {
-    this.rerenderEntireTree = observer;
+    this._rerenderEntireTree = observer;
   },
-  rerenderEntireTree() {},
+  dispatch(action) {
+    if (action.type === "ADD-POST") {
+      let newPost = {
+        id: "4",
+        name: "Inkognito",
+        age: "21",
+        comment: this._state.profilePage.userNewPost,
+      };
+      this._state.profilePage.usersPosts.push(newPost);
+      this._rerenderEntireTree(this._state);
+      this._state.profilePage.userNewPost = "";
+    } else if (action.type === "UPDATE-NEW-POST") {
+      this._state.profilePage.userNewPost = action.updatePost;
+      this._rerenderEntireTree(this._state);
+    } else if (action.type === "ADD-MESSAGE") {
+      let newMessage = {
+        id: "4",
+        message: store._state.messagePage.userNewMessage,
+      };
+      this._state.messagePage.usersMessages.push(newMessage);
+      this._rerenderEntireTree(this._state);
+      this._state.messagePage.userNewMessage = "";
+    } else if (action.type === "UPDATE-NEW-MESSAGE") {
+      this._state.messagePage.userNewMessage = action.updateText;
+      this._rerenderEntireTree(this._state);
+    }
+  },
 };
 
 export default store;
+
+window.store = store;

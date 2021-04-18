@@ -7,7 +7,7 @@ import { Route } from "react-router-dom";
 import MessageContainer from "./Message/MessageContainer";
 import FriendsContainer from "./Friends/FriendsContainer";
 
-const App = ({ store }) => {
+const App = ({ state, dispatch }) => {
   return (
     <div className={s.app}>
       <Menu />
@@ -16,30 +16,30 @@ const App = ({ store }) => {
           path="/profile"
           render={() => (
             <Content
-              usersPosts={store.state.profilePage.usersPosts}
-              userNewPost={store.state.profilePage.userNewPost}
-              addNewPost={store.addNewPost.bind(store)}
-              updateNewPost={store.updateNewPost.bind(store)}
+              usersPosts={state.profilePage.usersPosts}
+              userNewPost={state.profilePage.userNewPost}
+              // addNewPost={store.addNewPost.bind(store)}
+              // updateNewPost={store.updateNewPost.bind(store)}
+              dispatch={dispatch}
             />
           )}
         />
         <Route
           path="/friends"
           render={() => (
-            <FriendsContainer
-              userFriends={store.state.friendsPage.userFriends}
-            />
+            <FriendsContainer userFriends={state.friendsPage.userFriends} />
           )}
         />
         <Route
           path="/message"
           render={() => (
             <MessageContainer
-              usersNames={store.state.messagePage.usersNames}
-              usersMessages={store.state.messagePage.usersMessages}
-              userNewMessage={store.state.messagePage.userNewMessage}
-              addMessage={store.addMessage.bind(store)}
-              updateMessage={store.updateMessage.bind(store)}
+              usersNames={state.messagePage.usersNames}
+              usersMessages={state.messagePage.usersMessages}
+              userNewMessage={state.messagePage.userNewMessage}
+              // addMessage={store.addMessage.bind(store)}
+              // updateMessage={store.updateMessage.bind(store)}
+              dispatch={dispatch}
             />
           )}
         />

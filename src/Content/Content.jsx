@@ -3,7 +3,13 @@ import s from "./Content.module.css";
 import sahara from "./../pictures/sahara.jpg";
 import Posts from "./Posts/Posts";
 
-const Content = ({ usersPosts, userNewPost, addNewPost, updateNewPost }) => {
+const Content = ({
+  usersPosts,
+  userNewPost,
+  // addNewPost,
+  // updateNewPost,
+  dispatch,
+}) => {
   debugger;
   let postsElementData = usersPosts.map((post) => (
     <Posts
@@ -16,12 +22,14 @@ const Content = ({ usersPosts, userNewPost, addNewPost, updateNewPost }) => {
 
   let newPostText = React.createRef();
   let addPost = () => {
-    addNewPost();
+    // addNewPost();
+    dispatch({ type: "ADD-POST" });
   };
 
   let onChangePost = () => {
     let text = newPostText.current.value;
-    updateNewPost(text);
+    // updateNewPost(text);
+    dispatch({ type: "UPDATE-NEW-POST", updatePost: text });
   };
 
   return (
