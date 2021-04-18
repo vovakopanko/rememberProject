@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { addMessageAC, updateNewMessageAC } from "../redux/store.js";
+import { addMessageAC, updateNewMessageAC } from "../redux/messageReducer";
 import Message from "./Message.jsx";
 import s from "./Message.module.css";
 
@@ -26,8 +26,6 @@ let MessageUser = ({ message }) => {
 const MessageContainer = ({
   usersNames,
   usersMessages,
-  // addMessage,
-  // updateMessage,
   userNewMessage,
   dispatch,
 }) => {
@@ -42,13 +40,11 @@ const MessageContainer = ({
   let newMessageText = React.createRef();
 
   let messageData = () => {
-    // addMessage();
     dispatch(addMessageAC());
   };
 
   let onChangeData = () => {
     let text = newMessageText.current.value;
-    // updateMessage(text);
     dispatch(updateNewMessageAC(text));
   };
 

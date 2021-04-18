@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Content.module.css";
 import sahara from "./../pictures/sahara.jpg";
 import Posts from "./Posts/Posts";
-import { AddPostAC, UpdateNewPostAC } from "../redux/store";
+import { AddPostAC, UpdateNewPostAC } from "../redux/profileReducer";
 
 const Content = ({
   usersPosts,

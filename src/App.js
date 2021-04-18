@@ -18,8 +18,6 @@ const App = ({ state, dispatch }) => {
             <Content
               usersPosts={state.profilePage.usersPosts}
               userNewPost={state.profilePage.userNewPost}
-              // addNewPost={store.addNewPost.bind(store)}
-              // updateNewPost={store.updateNewPost.bind(store)}
               dispatch={dispatch}
             />
           )}
@@ -37,8 +35,6 @@ const App = ({ state, dispatch }) => {
               usersNames={state.messagePage.usersNames}
               usersMessages={state.messagePage.usersMessages}
               userNewMessage={state.messagePage.userNewMessage}
-              // addMessage={store.addMessage.bind(store)}
-              // updateMessage={store.updateMessage.bind(store)}
               dispatch={dispatch}
             />
           )}
