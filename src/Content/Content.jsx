@@ -2,12 +2,11 @@ import React from "react";
 import s from "./Content.module.css";
 import sahara from "./../pictures/sahara.jpg";
 import Posts from "./Posts/Posts";
+import { AddPostAC, UpdateNewPostAC } from "../redux/store";
 
 const Content = ({
   usersPosts,
   userNewPost,
-  // addNewPost,
-  // updateNewPost,
   dispatch,
 }) => {
   debugger;
@@ -22,14 +21,14 @@ const Content = ({
 
   let newPostText = React.createRef();
   let addPost = () => {
-    // addNewPost();
-    dispatch({ type: "ADD-POST" });
+    // dispatch({ type: "ADD-POST" });
+    dispatch(AddPostAC());
   };
 
   let onChangePost = () => {
     let text = newPostText.current.value;
-    // updateNewPost(text);
-    dispatch({ type: "UPDATE-NEW-POST", updatePost: text });
+    // dispatch({ type: "UPDATE-NEW-POST", updatePost: text });
+    dispatch(UpdateNewPostAC(text))
   };
 
   return (

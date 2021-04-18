@@ -1,3 +1,8 @@
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST = "UPDATE-NEW-POST";
+const ADD_MESSAGE = "ADD-MESSAGE";
+const UPDATE_NEW_MESSAGE = "UPDATE-NEW-MESSAGE";
+
 let store = {
   _state: {
     // Page Messages
@@ -40,42 +45,8 @@ let store = {
   getState() {
     return this._state;
   },
-  _rerenderEntireTree() {},
-  addMessage() {
-    let newMessage = {
-      id: "4",
-      message: store._state.messagePage.userNewMessage,
-    };
-    this._state.messagePage.usersMessages.push(newMessage);
-    this._rerenderEntireTree(this._state);
-    this._state.messagePage.userNewMessage = "";
-  },
-  updateMessage(updateText) {
-    this._state.messagePage.userNewMessage = updateText;
-    this._rerenderEntireTree(this._state);
-  },
-  // Method Page Profile
-  // addNewPost() {
-  //   let newPost = {
-  //     id: "4",
-  //     name: "Inkognito",
-  //     age: "21",
-  //     comment: this._state.profilePage.userNewPost,
-  //   };
-  //   this._state.profilePage.usersPosts.push(newPost);
-  //   this._rerenderEntireTree(this._state);
-  //   this._state.profilePage.userNewPost = "";
-  // },
-  // updateNewPost(updatePost) {
-  //   this._state.profilePage.userNewPost = updatePost;
-  //   this._rerenderEntireTree(this._state);
-  // },
-  // Other method
-  subscriber(observer) {
-    this._rerenderEntireTree = observer;
-  },
   dispatch(action) {
-    if (action.type === "ADD-POST") {
+    if (action.type === ADD_POST) {
       let newPost = {
         id: "4",
         name: "Inkognito",
@@ -85,10 +56,10 @@ let store = {
       this._state.profilePage.usersPosts.push(newPost);
       this._rerenderEntireTree(this._state);
       this._state.profilePage.userNewPost = "";
-    } else if (action.type === "UPDATE-NEW-POST") {
+    } else if (action.type === UPDATE_NEW_POST) {
       this._state.profilePage.userNewPost = action.updatePost;
       this._rerenderEntireTree(this._state);
-    } else if (action.type === "ADD-MESSAGE") {
+    } else if (action.type === ADD_MESSAGE) {
       let newMessage = {
         id: "4",
         message: store._state.messagePage.userNewMessage,
@@ -96,13 +67,33 @@ let store = {
       this._state.messagePage.usersMessages.push(newMessage);
       this._rerenderEntireTree(this._state);
       this._state.messagePage.userNewMessage = "";
-    } else if (action.type === "UPDATE-NEW-MESSAGE") {
+    } else if (action.type === UPDATE_NEW_MESSAGE) {
       this._state.messagePage.userNewMessage = action.updateText;
       this._rerenderEntireTree(this._state);
     }
+  },
+  _rerenderEntireTree() {},
+  subscriber(observer) {
+    this._rerenderEntireTree = observer;
   },
 };
 
 export default store;
 
 window.store = store;
+
+export const AddPostAC = () => ({
+  type: ADD_POST,
+});
+
+export const UpdateNewPostAC = (text) => ({
+  type: UPDATE_NEW_POST,
+  updatePost: text,
+});
+
+export const addMessageAC = () => ({ type: ADD_MESSAGE });
+
+export const updateNewMessageAC = (text) => ({
+  type: UPDATE_NEW_MESSAGE,
+  updateText: text,
+});

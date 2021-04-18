@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { addMessageAC, updateNewMessageAC } from "../redux/store.js";
 import Message from "./Message.jsx";
 import s from "./Message.module.css";
 
@@ -42,13 +43,13 @@ const MessageContainer = ({
 
   let messageData = () => {
     // addMessage();
-    dispatch({type:"ADD-MESSAGE"})
+    dispatch(addMessageAC());
   };
 
   let onChangeData = () => {
     let text = newMessageText.current.value;
     // updateMessage(text);
-    dispatch({type:"UPDATE-NEW-MESSAGE", updateText: text})
+    dispatch(updateNewMessageAC(text));
   };
 
   return (
