@@ -10,15 +10,22 @@ let rerenderEntireTree = () => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App store={store} state={store.getState()} dispatch={store.dispatch.bind(store)}/>
+        <App
+          store={store}
+          state={store.getState()}
+          dispatch={store.dispatch.bind(store)}
+        />
       </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")
   );
 };
 
-rerenderEntireTree();
+rerenderEntireTree(store.getState());
 
-store.subscriber(rerenderEntireTree);
+store.subscribe(() => {
+  let state = store.getState();
+  rerenderEntireTree(state);
+});
 
 reportWebVitals();
