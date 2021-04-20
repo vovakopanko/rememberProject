@@ -1,15 +1,16 @@
 import React from "react";
 import s from "./Content.module.css";
 import sahara from "./../pictures/sahara.jpg";
-import Posts from "./Posts/Posts";
-import { AddPostAC, UpdateNewPostAC } from "../redux/profileReducer";
+import Posts from "./Posts/Posts"
+
 
 const Content = ({
   usersPosts,
   userNewPost,
-  dispatch,
+  addPost,
+  onChangePost,
 }) => {
-  debugger;
+
   let postsElementData = usersPosts.map((post) => (
     <Posts
       key={post.id}
@@ -19,18 +20,6 @@ const Content = ({
     />
   ));
 
-  let newPostText = React.createRef();
-  let addPost = () => {
-    // dispatch({ type: "ADD-POST" });
-    dispatch(AddPostAC());
-  };
-
-  let onChangePost = () => {
-    let text = newPostText.current.value;
-    // dispatch({ type: "UPDATE-NEW-POST", updatePost: text });
-    dispatch(UpdateNewPostAC(text))
-  };
-
   return (
     <div className={s.app__header}>
       <div>WELCOME DEAR</div>
@@ -38,7 +27,6 @@ const Content = ({
       {postsElementData}
       <div>
         <textarea
-          ref={newPostText}
           value={userNewPost}
           onChange={onChangePost}
         ></textarea>

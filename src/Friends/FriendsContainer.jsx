@@ -8,7 +8,7 @@ const FriendsContainer = ({userFriends}) => {
     return <div>{props.name}</div>;
   };
 
-  let listFriends = userFriends.map((name) => <FriendsData name={name.name} />);
+  let listFriends = userFriends.map((name) => <FriendsData key={name.id} name={name.name} />);
 
   return (
     <div className={s.app__header}>

@@ -1,14 +1,42 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import s from "./Message.module.css";
 
 const Message = ({
-  postNameElement,
-  postMessageElement,
-  newMessageText,
+  usersNames,
+  usersMessages,
   messageData,
   onChangeData,
   userNewMessage,
 }) => {
+  let NameUser = (props) => {
+    let path = "/message/" + props.id;
+    return (
+      <div className={s.app__header_name}>
+        <NavLink to={path} activeClassName={s.activeLink}>
+          <b>{props.name}</b>
+        </NavLink>
+      </div>
+    );
+  };
+
+  let MessageUser = ({ message }) => {
+    return (
+      <div className={s.app__header_message}>
+        <div>{message}</div>
+      </div>
+    );
+  };
+  let postNameElement = usersNames.map((name) => (
+    <NameUser key={name.id} name={name.name} id={name.id} />
+  ));
+
+  let postMessageElement = usersMessages.map((message) => (
+    <MessageUser key={message.id} message={message.message} />
+  ));
+
+
+
   return (
     <div className={s.app__header}>
       <div className={s.app__header_title}>New Message:</div>
@@ -19,7 +47,6 @@ const Message = ({
           <textarea
             onChange={onChangeData}
             value={userNewMessage}
-            ref={newMessageText}
           ></textarea>
           <div>
             <button onClick={messageData}>Send message</button>

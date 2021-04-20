@@ -6,6 +6,7 @@ import s from "./App.module.css";
 import { Route } from "react-router-dom";
 import MessageContainer from "./Message/MessageContainer";
 import FriendsContainer from "./Friends/FriendsContainer";
+import ContentContainer from "./Content/ContentContainer";
 
 const App = ({ state, dispatch }) => {
   return (
@@ -15,7 +16,7 @@ const App = ({ state, dispatch }) => {
         <Route
           path="/profile"
           render={() => (
-            <Content
+            <ContentContainer
               usersPosts={state.profilePage.usersPosts}
               userNewPost={state.profilePage.userNewPost}
               dispatch={dispatch}

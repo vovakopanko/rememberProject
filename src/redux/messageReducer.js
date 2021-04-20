@@ -19,19 +19,37 @@ const initialstate = {
   userNewMessage: "Write your message...",
 };
 
-const messageReducer = (state=initialstate, action) => {
+
+
+const messageReducer = (state = initialstate, action) => {
+
+  let stateCopy;
   switch (action.type) {
     case ADD_MESSAGE:
-      let newMessage = {
-        id: "4",
-        message: state.userNewMessage,
-      };
-      state.usersMessages.push(newMessage);
-      state.userNewMessage = "";
-      return state;
+      let body = state.userNewMessage;
+      stateCopy = {
+        ...state,
+        usersMessages: [...state.usersMessages, {
+          id: "4",
+          message: body
+        }],
+        userNewMessage: ""
+      }
+      // let newMessage = {
+      //   id: "4",
+      //   message: stateCopy.userNewMessage,
+      // };
+      // stateCopy.usersMessages.push(newMessage);
+      // stateCopy.userNewMessage = "";
+      return stateCopy;
     case UPDATE_NEW_MESSAGE:
-      state.userNewMessage = action.updateText;
-      return state;
+      stateCopy = {
+        ...state,
+        userNewMessage: action.updateText,
+        // usersMessages : [...state.userNewMessage]
+      }
+      // stateCopy.userNewMessage = action.updateText;
+      return stateCopy;
     default:
       return state;
   }

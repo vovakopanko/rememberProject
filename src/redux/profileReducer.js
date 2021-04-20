@@ -10,21 +10,37 @@ const initialstate = {
   userNewPost: "Write here your new post...",
 }
 
-const profileReducer = (state=initialstate, action) => {
+const profileReducer = (state = initialstate, action) => {
+
+  let stateCopy;
   switch (action.type) {
     case ADD_POST:
-      let newPost = {
-        id: "4",
-        name: "Inkognito",
-        age: "21",
-        comment: state.userNewPost,
-      };
-      state.usersPosts.push(newPost);
-      state.userNewPost = "";
-      return state;
+      stateCopy = {
+        ...state,
+        usersPosts: [...state.usersPosts, {
+          id: "4",
+          name: "Inkognito",
+          age: "21",
+          comment: state.userNewPost
+        }],
+        userNewPost: ""
+      }
+      // let newPost = {
+      //   id: "4",
+      //   name: "Inkognito",
+      //   age: "21",
+      //   comment: stateCopy.userNewPost,
+      // };
+      // stateCopy.usersPosts.push(newPost);
+      // stateCopy.userNewPost = "";
+      return stateCopy;
     case UPDATE_NEW_POST:
-      state.userNewPost = action.updatePost;
-      return state;
+      stateCopy = {
+        ...state,
+        userNewPost: action.updatePost
+      }
+      // stateCopy.userNewPost = action.updatePost;
+      return stateCopy;
     default:
       return state;
   }

@@ -1,65 +1,27 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 import { addMessageAC, updateNewMessageAC } from "../redux/messageReducer";
 import Message from "./Message.jsx";
-import s from "./Message.module.css";
 
-let NameUser = (props) => {
-  let path = "/message/" + props.id;
-  return (
-    <div className={s.app__header_name}>
-      <NavLink to={path} activeClassName={s.activeLink}>
-        <b>{props.name}</b>
-      </NavLink>
-    </div>
-  );
+let mapStateToProps = (state) => {
+  return {
+    usersNames: state.messagePage.usersNames,
+    usersMessages: state.messagePage.usersMessages,
+    userNewMessage: state.messagePage.userNewMessage,
+  }
 };
 
-let MessageUser = ({ message }) => {
-  return (
-    <div className={s.app__header_message}>
-      <div>{message}</div>
-    </div>
-  );
+let mapDispatchToProps = (dispatch) => {
+  return {
+    messageData: () => {
+      dispatch(addMessageAC());
+    },
+    onChangeData: (body) => {
+      let text = body.target.value;
+      dispatch(updateNewMessageAC(text));
+    }
+  }
 };
 
-const MessageContainer = ({
-  usersNames,
-  usersMessages,
-  userNewMessage,
-  dispatch,
-}) => {
-  let postNameElement = usersNames.map((name) => (
-    <NameUser key={name.id} name={name.name} id={name.id} />
-  ));
+const MessageContainer = connect(mapStateToProps, mapDispatchToProps)(Message);
 
-  let postMessageElement = usersMessages.map((message) => (
-    <MessageUser key={message.id} message={message.message} />
-  ));
-
-  let newMessageText = React.createRef();
-
-  let messageData = () => {
-    dispatch(addMessageAC());
-  };
-
-  let onChangeData = () => {
-    let text = newMessageText.current.value;
-    dispatch(updateNewMessageAC(text));
-  };
-
-  return (
-    <div className={s.app__header}>
-      <Message
-        postMessageElement={postMessageElement}
-        postNameElement={postNameElement}
-        messageData={messageData}
-        newMessageText={newMessageText}
-        userNewMessage={userNewMessage}
-        onChangeData={onChangeData}
-      />
-    </div>
-  );
-};
-
-export default MessageContainer;
+export default MessageContainer
