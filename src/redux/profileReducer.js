@@ -11,6 +11,7 @@ const initialstate = {
 };
 
 const profileReducer = (state = initialstate, action) => {
+<<<<<<< HEAD
   switch (action.type) {
     case ADD_POST:
       let com = state.userNewPost;
@@ -32,6 +33,38 @@ const profileReducer = (state = initialstate, action) => {
         ...state,
         userNewPost: action.updatePost,
       };
+=======
+
+  let stateCopy;
+  switch (action.type) {
+    case ADD_POST:
+      stateCopy = {
+        ...state,
+        usersPosts: [...state.usersPosts, {
+          id: "4",
+          name: "Inkognito",
+          age: "21",
+          comment: state.userNewPost
+        }],
+        userNewPost: ""
+      }
+      // let newPost = {
+      //   id: "4",
+      //   name: "Inkognito",
+      //   age: "21",
+      //   comment: stateCopy.userNewPost,
+      // };
+      // stateCopy.usersPosts.push(newPost);
+      // stateCopy.userNewPost = "";
+      return stateCopy;
+    case UPDATE_NEW_POST:
+      stateCopy = {
+        ...state,
+        userNewPost: action.updatePost
+      }
+      // stateCopy.userNewPost = action.updatePost;
+      return stateCopy;
+>>>>>>> refs/remotes/origin/master
     default:
       return state;
   }

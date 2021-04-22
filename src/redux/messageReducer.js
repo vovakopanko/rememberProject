@@ -19,6 +19,7 @@ const initialstate = {
   userNewMessage: "Write your message...",
 };
 
+<<<<<<< HEAD
 const messageReducer = (state = initialstate, action) => {
   switch (action.type) {
     case ADD_MESSAGE:
@@ -38,6 +39,39 @@ const messageReducer = (state = initialstate, action) => {
         ...state,
         userNewMessage: action.updateText,
       };
+=======
+
+
+const messageReducer = (state = initialstate, action) => {
+
+  let stateCopy;
+  switch (action.type) {
+    case ADD_MESSAGE:
+      let body = state.userNewMessage;
+      stateCopy = {
+        ...state,
+        usersMessages: [...state.usersMessages, {
+          id: "4",
+          message: body
+        }],
+        userNewMessage: ""
+      }
+      // let newMessage = {
+      //   id: "4",
+      //   message: stateCopy.userNewMessage,
+      // };
+      // stateCopy.usersMessages.push(newMessage);
+      // stateCopy.userNewMessage = "";
+      return stateCopy;
+    case UPDATE_NEW_MESSAGE:
+      stateCopy = {
+        ...state,
+        userNewMessage: action.updateText,
+        // usersMessages : [...state.userNewMessage]
+      }
+      // stateCopy.userNewMessage = action.updateText;
+      return stateCopy;
+>>>>>>> refs/remotes/origin/master
     default:
       return state;
   }

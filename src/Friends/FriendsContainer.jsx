@@ -8,6 +8,7 @@ let mapStateToProps = (state) => {
   };
 };
 
+<<<<<<< HEAD
 let mapDispatchToprops = (dispatch) => {
   return {
     follow: (userId) => {
@@ -20,6 +21,15 @@ let mapDispatchToprops = (dispatch) => {
       dispatch(setUsersAC(users))
     }
   };
+=======
+  let listFriends = userFriends.map((name) => <FriendsData key={name.id} name={name.name} />);
+
+  return (
+    <div className={s.app__header}>
+      <Friends listFriends={listFriends}/>
+    </div>
+  );
+>>>>>>> refs/remotes/origin/master
 };
 const FriendsContainer = connect(mapStateToProps, mapDispatchToprops)(Friends);
 

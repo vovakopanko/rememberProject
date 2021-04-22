@@ -3,8 +3,14 @@ import { NavLink } from "react-router-dom";
 import s from "./Message.module.css";
 
 const Message = ({
+<<<<<<< HEAD
   usersMessages,
   usersNames,
+=======
+  usersNames,
+  usersMessages,
+  messageData,
+>>>>>>> refs/remotes/origin/master
   onChangeData,
   messageData,
   userNewMessage,
@@ -27,7 +33,10 @@ const Message = ({
       </div>
     );
   };
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/master
   let postNameElement = usersNames.map((name) => (
     <NameUser key={name.id} name={name.name} id={name.id} />
   ));
@@ -35,6 +44,12 @@ const Message = ({
   let postMessageElement = usersMessages.map((message) => (
     <MessageUser key={message.id} message={message.message} />
   ));
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> refs/remotes/origin/master
   return (
     <div className={s.app__header}>
       <div className={s.app__header_title}>New Message:</div>
@@ -42,7 +57,14 @@ const Message = ({
       <div className={s.app__header_messages}>
         {postMessageElement}
         <div>
+<<<<<<< HEAD
           <textarea onChange={onChangeData} value={userNewMessage}></textarea>
+=======
+          <textarea
+            onChange={onChangeData}
+            value={userNewMessage}
+          ></textarea>
+>>>>>>> refs/remotes/origin/master
           <div>
             <button onClick={messageData}>Send message</button>
           </div>
