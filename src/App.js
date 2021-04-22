@@ -1,11 +1,13 @@
 import React from "react";
 import Menu from "./Header/Menu/Menu";
-import Content from "./Content/Content";
 import Footer from "./Footer/Footer";
 import s from "./App.module.css";
 import { Route } from "react-router-dom";
 import MessageContainer from "./Message/MessageContainer";
 import FriendsContainer from "./Friends/FriendsContainer";
+import ContentContainer from "./Content/ContentContainer";
+import Info from "./Info/Info";
+import Settings from "./Settings/Settings";
 
 const App = ({ state, dispatch }) => {
   return (
@@ -15,7 +17,7 @@ const App = ({ state, dispatch }) => {
         <Route
           path="/profile"
           render={() => (
-            <Content
+            <ContentContainer
               usersPosts={state.profilePage.usersPosts}
               userNewPost={state.profilePage.userNewPost}
               dispatch={dispatch}
@@ -39,6 +41,8 @@ const App = ({ state, dispatch }) => {
             />
           )}
         />
+        <Route path="/info" render={() => <Info />} />
+        <Route path="/settings" render={() => <Settings />} />
       </div>
       <Footer />
     </div>

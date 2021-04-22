@@ -8,23 +8,30 @@ const initialstate = {
     { id: "3", name: "Egor", age: "22", comment: "Привет я Егор" },
   ],
   userNewPost: "Write here your new post...",
-}
+};
 
-const profileReducer = (state=initialstate, action) => {
+const profileReducer = (state = initialstate, action) => {
   switch (action.type) {
     case ADD_POST:
-      let newPost = {
-        id: "4",
-        name: "Inkognito",
-        age: "21",
-        comment: state.userNewPost,
+      let com = state.userNewPost;
+      return {
+        ...state,
+        usersPosts: [
+          ...state.usersPosts,
+          {
+            id: "4",
+            name: "Inkognito",
+            age: "21",
+            comment: com,
+          },
+        ],
+        userNewPost: "",
       };
-      state.usersPosts.push(newPost);
-      state.userNewPost = "";
-      return state;
     case UPDATE_NEW_POST:
-      state.userNewPost = action.updatePost;
-      return state;
+      return {
+        ...state,
+        userNewPost: action.updatePost,
+      };
     default:
       return state;
   }

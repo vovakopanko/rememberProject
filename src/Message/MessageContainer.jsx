@@ -1,65 +1,27 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 import { addMessageAC, updateNewMessageAC } from "../redux/messageReducer";
 import Message from "./Message.jsx";
-import s from "./Message.module.css";
 
-let NameUser = (props) => {
-  let path = "/message/" + props.id;
-  return (
-    <div className={s.app__header_name}>
-      <NavLink to={path} activeClassName={s.activeLink}>
-        <b>{props.name}</b>
-      </NavLink>
-    </div>
-  );
-};
-
-let MessageUser = ({ message }) => {
-  return (
-    <div className={s.app__header_message}>
-      <div>{message}</div>
-    </div>
-  );
-};
-
-const MessageContainer = ({
-  usersNames,
-  usersMessages,
-  userNewMessage,
-  dispatch,
-}) => {
-  let postNameElement = usersNames.map((name) => (
-    <NameUser key={name.id} name={name.name} id={name.id} />
-  ));
-
-  let postMessageElement = usersMessages.map((message) => (
-    <MessageUser key={message.id} message={message.message} />
-  ));
-
-  let newMessageText = React.createRef();
-
-  let messageData = () => {
-    dispatch(addMessageAC());
+let mapStateToProps = (state) => {
+  return {
+    usersNames: state.messagePage.usersNames,
+    usersMessages: state.messagePage.usersMessages,
+    userNewMessage: state.messagePage.userNewMessage,
   };
-
-  let onChangeData = () => {
-    let text = newMessageText.current.value;
-    dispatch(updateNewMessageAC(text));
-  };
-
-  return (
-    <div className={s.app__header}>
-      <Message
-        postMessageElement={postMessageElement}
-        postNameElement={postNameElement}
-        messageData={messageData}
-        newMessageText={newMessageText}
-        userNewMessage={userNewMessage}
-        onChangeData={onChangeData}
-      />
-    </div>
-  );
 };
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    onChangeData: (mes) => {
+      let text = mes.target.value;
+      dispatch(updateNewMessageAC(text));
+    },
+    messageData: () => {
+      dispatch(addMessageAC());
+    },
+  };
+};
+
+const MessageContainer = connect(mapStateToProps, mapDispatchToProps)(Message);
 
 export default MessageContainer;

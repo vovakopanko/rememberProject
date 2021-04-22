@@ -1,6 +1,6 @@
 import Friends from "./Friends.jsx";
 import { connect } from "react-redux";
-import { FollowAC, UnfollowAC, setUsersAC} from "./../redux/friendsReducer";
+import { FollowAC, UnfollowAC, setUsersAC} from "../redux/friendsReducer";
 
 let mapStateToProps = (state) => {
   return {

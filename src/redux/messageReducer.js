@@ -19,19 +19,25 @@ const initialstate = {
   userNewMessage: "Write your message...",
 };
 
-const messageReducer = (state=initialstate, action) => {
+const messageReducer = (state = initialstate, action) => {
   switch (action.type) {
     case ADD_MESSAGE:
-      let newMessage = {
-        id: "4",
-        message: state.userNewMessage,
+      return {
+        ...state,
+        usersMessages: [
+          ...state.usersMessages,
+          {
+            id: "4",
+            message: state.userNewMessage,
+          },
+        ],
+        userNewMessage: "",
       };
-      state.usersMessages.push(newMessage);
-      state.userNewMessage = "";
-      return state;
     case UPDATE_NEW_MESSAGE:
-      state.userNewMessage = action.updateText;
-      return state;
+      return {
+        ...state,
+        userNewMessage: action.updateText,
+      };
     default:
       return state;
   }
