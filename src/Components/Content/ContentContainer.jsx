@@ -1,6 +1,6 @@
-import { AddPostAC, UpdateNewPostAC } from "../redux/profileReducer";
-import Content from "./Content";
+import { AddPostAC, UpdateNewPostAC } from "../../redux/profileReducer";
 import { connect } from "react-redux";
+import Content from "./Content";
 
 let mapStateToProps = (state) => {
   return {
@@ -21,6 +21,4 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-const ContentContainer = connect(mapStateToProps, mapDispatchToProps)(Content);
-
-export default ContentContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(Content);

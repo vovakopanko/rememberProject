@@ -3,11 +3,11 @@ import Menu from "./Header/Menu/Menu";
 import Footer from "./Footer/Footer";
 import s from "./App.module.css";
 import { Route } from "react-router-dom";
-import MessageContainer from "./Message/MessageContainer";
-import FriendsContainer from "./Friends/FriendsContainer";
-import ContentContainer from "./Content/ContentContainer";
-import Info from "./Info/Info";
-import Settings from "./Settings/Settings";
+import MessageContainer from "./Components/Message/MessageContainer";
+import FriendsContainer from "./Components/Friends/FriendsContainer";
+import ContentContainer from "./Components/Content/ContentContainer";
+import Info from "./Components/Info/Info";
+import Settings from "./Components/Settings/Settings";
 
 const App = ({ state, dispatch }) => {
   return (

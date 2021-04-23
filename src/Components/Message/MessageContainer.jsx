@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { addMessageAC, updateNewMessageAC } from "../redux/messageReducer";
+import { addMessageAC, updateNewMessageAC } from "../../redux/messageReducer";
 import Message from "./Message.jsx";
 
 let mapStateToProps = (state) => {
@@ -22,6 +22,4 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-const MessageContainer = connect(mapStateToProps, mapDispatchToProps)(Message);
-
-export default MessageContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(Message);
