@@ -7,16 +7,11 @@ let mapStateToProps = (state) => {
     usersNames: state.messagePage.usersNames,
     usersMessages: state.messagePage.usersMessages,
     userNewMessage: state.messagePage.userNewMessage,
-<<<<<<< HEAD
   };
-=======
-  }
->>>>>>> refs/remotes/origin/master
 };
 
 let mapDispatchToProps = (dispatch) => {
   return {
-<<<<<<< HEAD
     onChangeData: (mes) => {
       let text = mes.target.value;
       dispatch(updateNewMessageAC(text));
@@ -25,22 +20,8 @@ let mapDispatchToProps = (dispatch) => {
       dispatch(addMessageAC());
     },
   };
-=======
-    messageData: () => {
-      dispatch(addMessageAC());
-    },
-    onChangeData: (body) => {
-      let text = body.target.value;
-      dispatch(updateNewMessageAC(text));
-    }
-  }
->>>>>>> refs/remotes/origin/master
 };
 
 const MessageContainer = connect(mapStateToProps, mapDispatchToProps)(Message);
 
-<<<<<<< HEAD
 export default MessageContainer;
-=======
-export default MessageContainer
->>>>>>> refs/remotes/origin/master

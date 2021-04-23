@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 let FOLLOW = "FOLLOW_USER";
 let UNFOLLOW = "UNFOLLOW_USER";
 let SET_USERS = "SET_USERS";
@@ -6,15 +5,6 @@ let SET_USERS = "SET_USERS";
 const initialstate = {
   userFriends: [],
 };
-=======
-const initialstate = {
-  userFriends: [
-    { id: "1", name: "Vova" },
-    { id: "2", name: "Tanya" },
-    { id: "3", name: "Egor" },]
-}
-
->>>>>>> refs/remotes/origin/master
 
 const friendsReducer = (state = initialstate, action) => {
   switch (action.type) {

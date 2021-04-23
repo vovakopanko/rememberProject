@@ -6,11 +6,8 @@ import { Route } from "react-router-dom";
 import MessageContainer from "./Message/MessageContainer";
 import FriendsContainer from "./Friends/FriendsContainer";
 import ContentContainer from "./Content/ContentContainer";
-<<<<<<< HEAD
 import Info from "./Info/Info";
 import Settings from "./Settings/Settings";
-=======
->>>>>>> refs/remotes/origin/master
 
 const App = ({ state, dispatch }) => {
   return (
