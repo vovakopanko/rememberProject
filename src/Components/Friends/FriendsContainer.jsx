@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  FollowAC,
-  UnfollowAC,
-  setUsersAC,
+  follow,
+  unfollow,
+  setUsers,
   setCurrentPage,
-  userQuantityAC,
+  usersQuantity,
   togleIsFetching,
 } from "../../redux/friendsReducer";
 import axios from "axios";
@@ -13,26 +13,27 @@ import Friends from "./Friends";
 
 class FriendsContainer extends React.Component {
   componentDidMount() {
-    this.props.addPreloader(true);
+    this.props.togleIsFetching(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
       )
       .then((response) => {
-        this.props.addPreloader(false);
+        debugger;
+        this.props.togleIsFetching(false);
         this.props.setUsers(response.data.items);
-        this.props.setQuantityUsers(response.data.totalCount);
+        this.props.usersQuantity(response.data.totalCount);
       });
   }
   getCurrentPage = (pageNumber) => {
-    this.props.setPage(this.props.currentPage);
-    this.props.addPreloader(true);
+    this.props.setCurrentPage(this.props.currentPage);
+    this.props.togleIsFetching(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
       )
       .then((response) => {
-        this.props.addPreloader(false);
+        this.props.togleIsFetching(false);
         this.props.setUsers(response.data.items);
       });
   };
@@ -63,27 +64,34 @@ let mapStateToProps = (state) => {
   };
 };
 
-let mapDispatchToprops = (dispatch) => {
-  return {
-    follow: (userId) => {
-      dispatch(FollowAC(userId));
-    },
-    unfollow: (userId) => {
-      dispatch(UnfollowAC(userId));
-    },
-    setUsers: (users) => {
-      dispatch(setUsersAC(users));
-    },
-    setPage: (currentPage) => {
-      dispatch(setCurrentPage(currentPage));
-    },
-    setQuantityUsers: (userQuantity) => {
-      dispatch(userQuantityAC(userQuantity));
-    },
-    addPreloader: (isFetching) => {
-      dispatch(togleIsFetching(isFetching));
-    },
-  };
-};
+// let mapDispatchToprops = (dispatch) => {
+//   return {
+//     follow: (userId) => {
+//       dispatch(follow(userId));
+//     },
+//     unfollow: (userId) => {
+//       dispatch(unfollow(userId));
+//     },
+//     setUsers: (users) => {
+//       dispatch(setUsers(users));
+//     },
+//     setCurrentPage: (currentPage) => {
+//       dispatch(setCurrentPage(currentPage));
+//     },
+//     usersQuantity: (userQuantity) => {
+//       dispatch(usersQuantity(userQuantity));
+//     },
+//     togleIsFetching: (isFetching) => {
+//       dispatch(togleIsFetching(isFetching));
+//     },
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToprops)(FriendsContainer);
+export default connect(mapStateToProps, {
+  follow,
+  unfollow,
+  setUsers,
+  setCurrentPage,
+  usersQuantity,
+  togleIsFetching,
+})(FriendsContainer);

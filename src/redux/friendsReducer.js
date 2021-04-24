@@ -70,17 +70,17 @@ const friendsReducer = (state = initialstate, action) => {
   }
 };
 
-export let FollowAC = (userId) => ({
+export let follow = (userId) => ({
   type: FOLLOW,
   userId,
 });
 
-export let UnfollowAC = (userId) => ({
+export let unfollow = (userId) => ({
   type: UNFOLLOW,
   userId,
 });
 
-export let setUsersAC = (users) => ({
+export let setUsers = (users) => ({
   type: SET_USERS,
   users,
 });
@@ -90,7 +90,7 @@ export let setCurrentPage = (currentPage) => ({
   currentPage,
 });
 
-export let userQuantityAC = (quantityUsers) => ({
+export let usersQuantity = (quantityUsers) => ({
   type: QUANTITYUSER,
   quantityUsers,
 });
