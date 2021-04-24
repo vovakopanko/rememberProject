@@ -12,7 +12,6 @@ import { Provider } from "react-redux";
       <Provider store={store}>
       <BrowserRouter>
         <App
-          store={store}
           state={store.getState()}
           dispatch={store.dispatch.bind(store)}
         />

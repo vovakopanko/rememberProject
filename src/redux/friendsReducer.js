@@ -1,9 +1,14 @@
 let FOLLOW = "FOLLOW_USER";
 let UNFOLLOW = "UNFOLLOW_USER";
 let SET_USERS = "SET_USERS";
+let SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
+let QUANTITYUSER = "QUANTITY_USER";
 
 const initialstate = {
   userFriends: [],
+  totalUsersCount: 0,
+  pageSize: 5,
+  currentPage: 2,
 };
 
 const friendsReducer = (state = initialstate, action) => {
@@ -37,7 +42,19 @@ const friendsReducer = (state = initialstate, action) => {
     case SET_USERS: {
       return {
         ...state,
-        userFriends: [...state.userFriends, ...action.users],
+        userFriends: action.users,
+      };
+    }
+    case SET_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: action.currentPage,
+      };
+    }
+    case QUANTITYUSER: {
+      return {
+        ...state,
+        totalUsersCount: action.quantityUsers,
       };
     }
     default:
@@ -47,17 +64,27 @@ const friendsReducer = (state = initialstate, action) => {
 
 export let FollowAC = (userId) => ({
   type: FOLLOW,
-  userId: userId,
+  userId,
 });
 
 export let UnfollowAC = (userId) => ({
   type: UNFOLLOW,
-  userId: userId,
+  userId,
 });
 
 export let setUsersAC = (users) => ({
   type: SET_USERS,
-  users: users,
+  users,
+});
+
+export let setCurrentPage = (currentPage) => ({
+  type: SET_CURRENT_PAGE,
+  currentPage,
+});
+
+export let userQuantityAC = (quantityUsers) => ({
+  type: QUANTITYUSER,
+  quantityUsers,
 });
 
 export default friendsReducer;

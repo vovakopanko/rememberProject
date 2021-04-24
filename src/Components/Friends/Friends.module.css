@@ -1,14 +1,25 @@
-.app__header {
+.friends {
   text-align: center;
   min-height: 100vh;
 }
 
-.photoUsers {
+.friends__photo{
   width: 80px;
   height: 80px;
 }
 
-.userBlock{
+.friends__block{
   padding-top: 5px;
   padding-bottom: 20px;
+}
+.friends__pagination{
+  font-size: 18px;
+}
+
+.friends__pagination span {
+  margin-left: 5px;
+}
+
+.friends__activPage{
+  font-weight: bold;
 }
