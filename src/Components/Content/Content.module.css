@@ -2,3 +2,7 @@
     min-height: 100vh; 
     text-align: left;
   }
+
+  .content__wall{
+    padding-top: 20px;
+  }

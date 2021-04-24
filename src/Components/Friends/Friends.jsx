@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Friends.module.css";
 import userPhoto from "./../../pictures/userPhoto.png";
 import Preloader from "../Preloader/Preloader";
+import { NavLink } from "react-router-dom";
 
 let Friends = ({
   unfollow,
@@ -32,13 +33,17 @@ let Friends = ({
               <div>
                 PHOTOS:{" "}
                 <div>
-                  <img
-                    alt="photoUsers"
-                    className={s.friends__photo}
-                    src={
-                      name.photos.small != null ? name.photos.small : userPhoto
-                    }
-                  />
+                  <NavLink to={"/profile/" + name.id}>
+                    <img
+                      alt="photoUsers"
+                      className={s.friends__photo}
+                      src={
+                        name.photos.small != null
+                          ? name.photos.small
+                          : userPhoto
+                      }
+                    />
+                  </NavLink>
                 </div>
               </div>
               <div>

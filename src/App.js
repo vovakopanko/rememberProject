@@ -15,7 +15,7 @@ const App = ({ state, dispatch }) => {
       <Menu />
       <div className={s.app__content}>
         <Route
-          path="/profile"
+          path="/profile/:userId"
           render={() => (
             <ContentContainer
               usersPosts={state.profilePage.usersPosts}

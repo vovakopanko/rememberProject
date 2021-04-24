@@ -1,15 +1,47 @@
 import React from "react";
 import s from "./Content.module.css";
-import sahara from "./../../pictures/sahara.jpg";
 import Posts from "./Posts/Posts";
+import Preloader from "./../Preloader/Preloader";
 
-class Content extends React.Component {
-  render() {
-    return (
-      <div className={s.app__header}>
-        <div>WELCOME DEAR</div>
-        <img src={sahara} alt="sahara" />
-        {this.props.usersPosts.map((post) => (
+let Content = ({
+  AddPost,
+  UpdateNewPost,
+  userNewPost,
+  usersPosts,
+  profile,
+}) => {
+  if (!profile) {
+    return <Preloader />;
+  }
+  return (
+    <div className={s.app__header}>
+      <div>WELCOME DEAR</div>
+      <div>
+        <img src={profile.photos.large} alt="photoUser" />
+      </div>
+      <div>
+        <b>Полное имя: </b>
+        {profile.fullName}
+      </div>
+      <div>
+        <b>Обо мне: </b>
+        {profile.aboutMe}
+      </div>
+      <div>
+        <b>Описание работы мечты: </b>
+        {profile.lookingForAJobDescription}
+      </div>
+      <div>
+        <b>В поисках работы: </b>
+        {profile.lookingForAJob?"В активном поиске":"Работаю"}
+      </div>
+      <div>
+        <b>Социальные сети: </b>
+        
+      </div>
+      <div className={s.content__wall}>
+        <b>Your Wall:</b>
+        {usersPosts.map((post) => (
           <Posts
             key={post.id}
             name={post.name}
@@ -17,18 +49,16 @@ class Content extends React.Component {
             comment={post.comment}
           />
         ))}
-        <div>
-          <textarea
-            value={this.props.userNewPost}
-            onChange={this.props.onChangePost}
-          />
-        </div>
-        <div>
-          <button onClick={this.props.addPost}>SEND POST</button>
-        </div>
       </div>
-    );
-  }
-}
+
+      <div>
+        <textarea value={userNewPost} onChange={UpdateNewPost} />
+      </div>
+      <div>
+        <button onClick={AddPost}>SEND POST</button>
+      </div>
+    </div>
+  );
+};
 
 export default Content;
