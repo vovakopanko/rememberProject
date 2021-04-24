@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Preloader from "../Preloader/Preloader";
 import s from "./Message.module.css";
 
 class Message extends React.Component {

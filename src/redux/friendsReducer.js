@@ -2,13 +2,15 @@ let FOLLOW = "FOLLOW_USER";
 let UNFOLLOW = "UNFOLLOW_USER";
 let SET_USERS = "SET_USERS";
 let SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
-let QUANTITYUSER = "QUANTITY_USER";
+let QUANTITYUSER = "QUANTIT-USER";
+let TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING"
 
 const initialstate = {
   userFriends: [],
   totalUsersCount: 0,
   pageSize: 5,
   currentPage: 2,
+  isFetching: false,
 };
 
 const friendsReducer = (state = initialstate, action) => {
@@ -57,6 +59,12 @@ const friendsReducer = (state = initialstate, action) => {
         totalUsersCount: action.quantityUsers,
       };
     }
+    case TOGGLE_IS_FETCHING: {
+      return {
+        ...state,
+        isFetching: action.isFetching
+      }
+    }
     default:
       return state;
   }
@@ -86,5 +94,10 @@ export let userQuantityAC = (quantityUsers) => ({
   type: QUANTITYUSER,
   quantityUsers,
 });
+
+export let togleIsFetching = (isFetching) => ({
+  type:TOGGLE_IS_FETCHING,
+  isFetching
+})
 
 export default friendsReducer;
