@@ -8,39 +8,27 @@ import {
   usersQuantity,
   togleIsFetching,
 } from "../../redux/friendsReducer";
-import axios from "axios";
 import Friends from "./Friends";
+import { userAPI } from "../../API/api";
 
 class FriendsContainer extends React.Component {
   componentDidMount() {
     this.props.togleIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
+    userAPI.getUsers(this.props.currentPage,this.props.pageSize)
+      .then((data) => {
         debugger;
         this.props.togleIsFetching(false);
-        this.props.setUsers(response.data.items);
-        this.props.usersQuantity(response.data.totalCount);
+        this.props.setUsers(data.items);
+        this.props.usersQuantity(data.totalCount);
       });
   }
   getCurrentPage = (pageNumber) => {
     this.props.setCurrentPage(this.props.currentPage);
     this.props.togleIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
+    userAPI.getUsers(pageNumber,this.props.pageSize)
+      .then((data) => {
         this.props.togleIsFetching(false);
-        this.props.setUsers(response.data.items);
+        this.props.setUsers(data.items);
       });
   };
 

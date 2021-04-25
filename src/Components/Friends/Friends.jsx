@@ -3,7 +3,7 @@ import s from "./Friends.module.css";
 import userPhoto from "./../../pictures/userPhoto.png";
 import Preloader from "../Preloader/Preloader";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
+import { subscribeAPI, userAPI } from "../../API/api";
 
 let Friends = ({
   unfollow,
@@ -54,21 +54,11 @@ let Friends = ({
                 {name.followed ? (
                   <button
                     onClick={() => {
-                      axios
-                        .delete(
-                          `https://social-network.samuraijs.com/api/1.0/follow/${name.id}`,
-                          {
-                            withCredentials: true,
-                            headers: {
-                              "API-KEY": "8256ff37-d3d1-441d-908a-445078d78397",
-                            },
-                          }
-                        )
-                        .then((Response) => {
-                          if (Response.data.resultCode === 0) {
-                            unfollow(name.id);
-                          }
-                        });
+                      subscribeAPI.deleteUser(name.id).then((data) => {
+                        if (data.resultCode === 0) {
+                          unfollow(name.id);
+                        }
+                      });
                     }}
                   >
                     UNFOLLOW
@@ -76,22 +66,11 @@ let Friends = ({
                 ) : (
                   <button
                     onClick={() => {
-                      axios
-                        .post(
-                          `https://social-network.samuraijs.com/api/1.0/follow/${name.id}`,
-                          {},
-                          {
-                            withCredentials: true,
-                            headers: {
-                              "API-KEY": "8256ff37-d3d1-441d-908a-445078d78397",
-                            },
-                          }
-                        )
-                        .then((Response) => {
-                          if (Response.data.resultCode === 0) {
-                            follow(name.id);
-                          }
-                        });
+                      subscribeAPI.postUser(name.id).then((data) => {
+                        if (data.resultCode === 0) {
+                          follow(name.id);
+                        }
+                      });
                     }}
                   >
                     FOLLOW
