@@ -1,0 +1,9 @@
+.app__header {
+  text-align: center;
+  min-height: 100vh;
+}
+
+.photoUsers {
+  width: 80px;
+  height: 80px;
+}

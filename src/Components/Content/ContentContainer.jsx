@@ -7,9 +7,13 @@ import { withRouter } from "react-router";
 
 class ContentContainer extends React.Component {
   componentDidMount() {
+    debugger;
     let userId = this.props.match.params.userId;
+    if (!userId) {
+      userId = 9629;
+    }
     axios
-      .get("https://social-network.samuraijs.com/api/1.0/profile/"+userId)
+      .get("https://social-network.samuraijs.com/api/1.0/profile/" + userId)
       .then((Response) => {
         this.props.setProfile(Response.data);
       });
@@ -42,6 +46,9 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-let withRouterContentContainer = withRouter(ContentContainer)
+let withRouterContentContainer = withRouter(ContentContainer);
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouterContentContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouterContentContainer);

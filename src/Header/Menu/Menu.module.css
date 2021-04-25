@@ -1,22 +1,29 @@
-.menu__items{
-    background-color: rgb(153, 153, 153);
+.menu__items {
+  background-color: rgb(153, 153, 153);
 }
 
-.menu__item{
-    padding: 10px 10px ;
-    font-size: 21px;
-    color: white;
-    text-decoration: none;
+.menu__item {
+  padding: 10px 10px;
+  font-size: 21px;
+  color: white;
+  text-decoration: none;
 }
 
-.menu__item:hover{
-    color: gold;
+.menu__item:hover {
+  color: gold;
 }
 
-.activeLink{
-    color: thistle;
+.activeLink {
+  color: thistle;
 }
 
-.activeLink:hover{
-    color: gold;
+.activeLink:hover {
+  color: gold;
+}
+
+.loginBlock {
+  float: right;
+  color: white;
+  text-decoration: none;
+  font-size: 21px;
 }
