@@ -13,7 +13,9 @@ class ContentContainer extends React.Component {
       userId = 9629;
     }
     axios
-      .get("https://social-network.samuraijs.com/api/1.0/profile/" + userId)
+      .get("https://social-network.samuraijs.com/api/1.0/profile/" + userId, {
+        withCredentials: true,
+      })
       .then((Response) => {
         this.props.setProfile(Response.data);
       });
