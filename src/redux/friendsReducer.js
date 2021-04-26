@@ -3,7 +3,8 @@ let UNFOLLOW = "UNFOLLOW_USER";
 let SET_USERS = "SET_USERS";
 let SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
 let QUANTITYUSER = "QUANTIT-USER";
-let TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING"
+let TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
+let WAITING_REQUEST = "WAITING-REQUEST";
 
 const initialstate = {
   userFriends: [],
@@ -11,6 +12,7 @@ const initialstate = {
   pageSize: 5,
   currentPage: 2,
   isFetching: false,
+  isButtonLock: [],
 };
 
 const friendsReducer = (state = initialstate, action) => {
@@ -62,8 +64,16 @@ const friendsReducer = (state = initialstate, action) => {
     case TOGGLE_IS_FETCHING: {
       return {
         ...state,
-        isFetching: action.isFetching
-      }
+        isFetching: action.isFetching,
+      };
+    }
+    case WAITING_REQUEST: {
+      return {
+        ...state,
+        isButtonLock: action.booleanData
+          ? [...state.isButtonLock, action.userId]
+          : state.isButtonLock.filter((id) => id !== action.userId),
+      };
     }
     default:
       return state;
@@ -96,8 +106,14 @@ export let usersQuantity = (quantityUsers) => ({
 });
 
 export let togleIsFetching = (isFetching) => ({
-  type:TOGGLE_IS_FETCHING,
-  isFetching
-})
+  type: TOGGLE_IS_FETCHING,
+  isFetching,
+});
+
+export let togleIsBlockButton = (booleanData, userId) => ({
+  type: WAITING_REQUEST,
+  booleanData,
+  userId,
+});
 
 export default friendsReducer;

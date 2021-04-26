@@ -14,6 +14,8 @@ let Friends = ({
   currentPage,
   getCurrentPage,
   isFetching,
+  isButtonLock,
+  togleIsBlockButton,
 }) => {
   let pageCount = Math.ceil(totalUsersCount / pageSize);
   let pages = [];
@@ -53,8 +55,11 @@ let Friends = ({
               <div>
                 {name.followed ? (
                   <button
+                    disabled={isButtonLock.some((d) => d === name.id)}
                     onClick={() => {
+                      togleIsBlockButton(true, name.id);
                       subscribeAPI.deleteUser(name.id).then((data) => {
+                        togleIsBlockButton(false, name.id);
                         if (data.resultCode === 0) {
                           unfollow(name.id);
                         }
@@ -65,8 +70,11 @@ let Friends = ({
                   </button>
                 ) : (
                   <button
+                    disabled={isButtonLock.some((d) => d === name.id)}
                     onClick={() => {
+                      togleIsBlockButton(true, name.id);
                       subscribeAPI.postUser(name.id).then((data) => {
+                        togleIsBlockButton(false, name.id);
                         if (data.resultCode === 0) {
                           follow(name.id);
                         }

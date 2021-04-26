@@ -7,6 +7,7 @@ import {
   setCurrentPage,
   usersQuantity,
   togleIsFetching,
+  togleIsBlockButton,
 } from "../../redux/friendsReducer";
 import Friends from "./Friends";
 import { userAPI } from "../../API/api";
@@ -14,7 +15,8 @@ import { userAPI } from "../../API/api";
 class FriendsContainer extends React.Component {
   componentDidMount() {
     this.props.togleIsFetching(true);
-    userAPI.getUsers(this.props.currentPage,this.props.pageSize)
+    userAPI
+      .getUsers(this.props.currentPage, this.props.pageSize)
       .then((data) => {
         debugger;
         this.props.togleIsFetching(false);
@@ -25,11 +27,10 @@ class FriendsContainer extends React.Component {
   getCurrentPage = (pageNumber) => {
     this.props.setCurrentPage(this.props.currentPage);
     this.props.togleIsFetching(true);
-    userAPI.getUsers(pageNumber,this.props.pageSize)
-      .then((data) => {
-        this.props.togleIsFetching(false);
-        this.props.setUsers(data.items);
-      });
+    userAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
+      this.props.togleIsFetching(false);
+      this.props.setUsers(data.items);
+    });
   };
 
   render() {
@@ -43,6 +44,8 @@ class FriendsContainer extends React.Component {
         currentPage={this.props.currentPage}
         getCurrentPage={this.getCurrentPage}
         isFetching={this.props.isFetching}
+        isButtonLock={this.props.isButtonLock}
+        togleIsBlockButton={this.props.togleIsBlockButton}
       />
     );
   }
@@ -55,6 +58,7 @@ let mapStateToProps = (state) => {
     pageSize: state.friendsPage.pageSize,
     currentPage: state.friendsPage.currentPage,
     isFetching: state.friendsPage.isFetching,
+    isButtonLock: state.friendsPage.isButtonLock,
   };
 };
 
@@ -63,23 +67,7 @@ let mapStateToProps = (state) => {
 //     follow: (userId) => {
 //       dispatch(follow(userId));
 //     },
-//     unfollow: (userId) => {
-//       dispatch(unfollow(userId));
-//     },
-//     setUsers: (users) => {
-//       dispatch(setUsers(users));
-//     },
-//     setCurrentPage: (currentPage) => {
-//       dispatch(setCurrentPage(currentPage));
-//     },
-//     usersQuantity: (userQuantity) => {
-//       dispatch(usersQuantity(userQuantity));
-//     },
-//     togleIsFetching: (isFetching) => {
-//       dispatch(togleIsFetching(isFetching));
-//     },
-//   };
-// };
+// }}
 
 export default connect(mapStateToProps, {
   follow,
@@ -88,4 +76,5 @@ export default connect(mapStateToProps, {
   setCurrentPage,
   usersQuantity,
   togleIsFetching,
+  togleIsBlockButton,
 })(FriendsContainer);
