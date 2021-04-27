@@ -1,3 +1,5 @@
+import { subscribeAPI, userAPI } from "../API/api";
+
 let FOLLOW = "FOLLOW_USER";
 let UNFOLLOW = "UNFOLLOW_USER";
 let SET_USERS = "SET_USERS";
@@ -115,5 +117,40 @@ export let togleIsBlockButton = (booleanData, userId) => ({
   booleanData,
   userId,
 });
+
+export const getUserThunkCreator = (currentPage, pageSize) => {
+  return (dispatch) => {
+    dispatch(togleIsFetching(true));
+    userAPI.getUsers(currentPage, pageSize).then((data) => {
+      dispatch(togleIsFetching(false));
+      dispatch(setUsers(data.items));
+      dispatch(usersQuantity(data.totalCount));
+    });
+  };
+};
+
+export const deleteUsersThunkCreator = (userId) => {
+  return (dispatch) => {
+    dispatch(togleIsBlockButton(true, userId));
+    subscribeAPI.deleteUser(userId).then((data) => {
+      dispatch(togleIsBlockButton(false, userId));
+      if (data.resultCode === 0) {
+        dispatch(unfollow(userId));
+      }
+    });
+  };
+};
+
+export const postUsersThunkCreator = (userId) => {
+  return (dispatch) => {
+    dispatch(togleIsBlockButton(true, userId));
+    subscribeAPI.postUser(userId).then((data) => {
+      dispatch(togleIsBlockButton(false, userId));
+      if (data.resultCode === 0) {
+        dispatch(follow(userId));
+      }
+    });
+  };
+};
 
 export default friendsReducer;

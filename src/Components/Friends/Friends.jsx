@@ -3,11 +3,11 @@ import s from "./Friends.module.css";
 import userPhoto from "./../../pictures/userPhoto.png";
 import Preloader from "../Preloader/Preloader";
 import { NavLink } from "react-router-dom";
-import { subscribeAPI, userAPI } from "../../API/api";
+import { subscribeAPI } from "../../API/api";
 
 let Friends = ({
-  unfollow,
-  follow,
+  // unfollow,
+  // follow,
   totalUsersCount,
   pageSize,
   userFriends,
@@ -15,7 +15,9 @@ let Friends = ({
   getCurrentPage,
   isFetching,
   isButtonLock,
-  togleIsBlockButton,
+  // togleIsBlockButton,
+  deleteUsersThunkCreator,
+  postUsersThunkCreator,
 }) => {
   let pageCount = Math.ceil(totalUsersCount / pageSize);
   let pages = [];
@@ -57,13 +59,14 @@ let Friends = ({
                   <button
                     disabled={isButtonLock.some((d) => d === name.id)}
                     onClick={() => {
-                      togleIsBlockButton(true, name.id);
-                      subscribeAPI.deleteUser(name.id).then((data) => {
-                        togleIsBlockButton(false, name.id);
-                        if (data.resultCode === 0) {
-                          unfollow(name.id);
-                        }
-                      });
+                      deleteUsersThunkCreator(name.id);
+                      // togleIsBlockButton(true, name.id);
+                      // subscribeAPI.deleteUser(name.id).then((data) => {
+                      //   togleIsBlockButton(false, name.id);
+                      //   if (data.resultCode === 0) {
+                      //     unfollow(name.id);
+                      //   }
+                      // });
                     }}
                   >
                     UNFOLLOW
@@ -72,13 +75,14 @@ let Friends = ({
                   <button
                     disabled={isButtonLock.some((d) => d === name.id)}
                     onClick={() => {
-                      togleIsBlockButton(true, name.id);
-                      subscribeAPI.postUser(name.id).then((data) => {
-                        togleIsBlockButton(false, name.id);
-                        if (data.resultCode === 0) {
-                          follow(name.id);
-                        }
-                      });
+                      postUsersThunkCreator(name.id);
+                      // togleIsBlockButton(true, name.id);
+                      // subscribeAPI.postUser(name.id).then((data) => {
+                      //   togleIsBlockButton(false, name.id);
+                      //   if (data.resultCode === 0) {
+                      //     follow(name.id);
+                      //   }
+                      // });
                     }}
                   >
                     FOLLOW
