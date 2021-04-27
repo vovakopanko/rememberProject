@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { addMessageAC, updateNewMessageAC } from "../../redux/messageReducer";
 import Message from "./Message.jsx";
@@ -24,6 +25,8 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-let AuthRedirectComponent = withAuthRedirect(Message)
+// Преоброзование кода при помощи compose
+// let AuthRedirectComponent = withAuthRedirect(Message)
+// export default connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
+export default compose(connect(mapStateToProps, mapDispatchToProps),withAuthRedirect)(Message)

@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import {
   togleIsBlockButton,
@@ -46,18 +48,9 @@ let mapStateToProps = (state) => {
   };
 };
 
-// let mapDispatchToprops = (dispatch) => {
-//   return {
-//     follow: (userId) => {
-//       dispatch(follow(userId));
-//     },
-// }}
-
-let AuthRedirectComponent = withAuthRedirect(FriendsContainer);
-
-export default connect(mapStateToProps, {
+export default compose(connect(mapStateToProps, {
   togleIsBlockButton,
   getUserThunkCreator,
   deleteUsersThunkCreator,
   postUsersThunkCreator,
-})(AuthRedirectComponent);
+}),withRouter,withAuthRedirect)(FriendsContainer)

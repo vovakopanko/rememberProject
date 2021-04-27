@@ -7,8 +7,9 @@ import {
 import { connect } from "react-redux";
 import React from "react";
 import Content from "./Content";
-import { withRouter } from "react-router";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
+import { withRouter } from "react-router";
 
 class ContentContainer extends React.Component {
   componentDidMount() {
@@ -28,7 +29,6 @@ let mapStateToProps = (state) => {
     usersPosts: state.profilePage.usersPosts,
     userNewPost: state.profilePage.userNewPost,
     profile: state.profilePage.profile,
-    // isAuth: state.auth.isAuth,
   };
 };
 
@@ -49,11 +49,5 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-let AuthRedirectComponent = withAuthRedirect(ContentContainer);
-
-let withRouterContentContainer = withRouter(AuthRedirectComponent);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouterContentContainer);
+export default compose(connect(mapStateToProps,
+  mapDispatchToProps),withRouter,withAuthRedirect)(ContentContainer)
