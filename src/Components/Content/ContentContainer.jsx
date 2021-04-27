@@ -7,7 +7,8 @@ import {
 import { connect } from "react-redux";
 import React from "react";
 import Content from "./Content";
-import { Redirect, withRouter } from "react-router";
+import { withRouter } from "react-router";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 class ContentContainer extends React.Component {
   componentDidMount() {
@@ -18,7 +19,6 @@ class ContentContainer extends React.Component {
     this.props.getUsersThunk(userId);
   }
   render() {
-    if (!this.props.isAuth) return <Redirect to="login" />;
     return <Content {...this.props} />;
   }
 }
@@ -28,7 +28,7 @@ let mapStateToProps = (state) => {
     usersPosts: state.profilePage.usersPosts,
     userNewPost: state.profilePage.userNewPost,
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth,
+    // isAuth: state.auth.isAuth,
   };
 };
 
@@ -49,7 +49,9 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-let withRouterContentContainer = withRouter(ContentContainer);
+let AuthRedirectComponent = withAuthRedirect(ContentContainer);
+
+let withRouterContentContainer = withRouter(AuthRedirectComponent);
 
 export default connect(
   mapStateToProps,
