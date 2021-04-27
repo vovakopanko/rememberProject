@@ -19,6 +19,14 @@ export const userAPI = {
   },
 };
 
+export const meAPI = {
+  me() {
+    return instance.get("auth/me").then((Response) => {
+      return Response.data;
+    });
+  },
+};
+
 export const subscribeAPI = {
   deleteUser(id) {
     return instance.delete(`follow/${id}`).then((Response) => Response.data);

@@ -3,11 +3,8 @@ import s from "./Friends.module.css";
 import userPhoto from "./../../pictures/userPhoto.png";
 import Preloader from "../Preloader/Preloader";
 import { NavLink } from "react-router-dom";
-import { subscribeAPI } from "../../API/api";
 
 let Friends = ({
-  // unfollow,
-  // follow,
   totalUsersCount,
   pageSize,
   userFriends,
@@ -15,7 +12,6 @@ let Friends = ({
   getCurrentPage,
   isFetching,
   isButtonLock,
-  // togleIsBlockButton,
   deleteUsersThunkCreator,
   postUsersThunkCreator,
 }) => {
@@ -24,6 +20,7 @@ let Friends = ({
   for (let i = 1; i <= pageCount; i++) {
     pages.push(i);
   }
+  
   return (
     <div className={s.friends}>
       {isFetching ? (
@@ -60,13 +57,6 @@ let Friends = ({
                     disabled={isButtonLock.some((d) => d === name.id)}
                     onClick={() => {
                       deleteUsersThunkCreator(name.id);
-                      // togleIsBlockButton(true, name.id);
-                      // subscribeAPI.deleteUser(name.id).then((data) => {
-                      //   togleIsBlockButton(false, name.id);
-                      //   if (data.resultCode === 0) {
-                      //     unfollow(name.id);
-                      //   }
-                      // });
                     }}
                   >
                     UNFOLLOW
@@ -76,13 +66,6 @@ let Friends = ({
                     disabled={isButtonLock.some((d) => d === name.id)}
                     onClick={() => {
                       postUsersThunkCreator(name.id);
-                      // togleIsBlockButton(true, name.id);
-                      // subscribeAPI.postUser(name.id).then((data) => {
-                      //   togleIsBlockButton(false, name.id);
-                      //   if (data.resultCode === 0) {
-                      //     follow(name.id);
-                      //   }
-                      // });
                     }}
                   >
                     FOLLOW

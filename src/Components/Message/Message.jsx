@@ -1,10 +1,10 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import Preloader from "../Preloader/Preloader";
+import { NavLink, Redirect } from "react-router-dom";
 import s from "./Message.module.css";
 
 class Message extends React.Component {
   render() {
+    if (!this.props.isAuth) return <Redirect to="login" />;
     return (
       <div className={s.app__header}>
         <div className={s.app__header_title}>New Message:</div>

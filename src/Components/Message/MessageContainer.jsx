@@ -7,6 +7,7 @@ let mapStateToProps = (state) => {
     usersNames: state.messagePage.usersNames,
     usersMessages: state.messagePage.usersMessages,
     userNewMessage: state.messagePage.userNewMessage,
+    isAuth: state.auth.isAuth,
   };
 };
 

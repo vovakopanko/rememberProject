@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router";
 import {
   // follow,
   // unfollow,
@@ -39,6 +40,7 @@ class FriendsContainer extends React.Component {
   };
 
   render() {
+    if (!this.props.isAuth) return <Redirect to="login" />;
     return (
       <Friends
         // unfollow={this.props.unfollow}
@@ -66,6 +68,7 @@ let mapStateToProps = (state) => {
     currentPage: state.friendsPage.currentPage,
     isFetching: state.friendsPage.isFetching,
     isButtonLock: state.friendsPage.isButtonLock,
+    isAuth: state.auth.isAuth,
   };
 };
 

@@ -1,22 +1,24 @@
-import { AddPost, setProfile, UpdateNewPost } from "../../redux/profileReducer";
+import {
+  AddPost,
+  getUsersThunk,
+  setProfile,
+  UpdateNewPost,
+} from "../../redux/profileReducer";
 import { connect } from "react-redux";
 import React from "react";
 import Content from "./Content";
-import { withRouter } from "react-router";
-import { userAPI } from "../../API/api";
+import { Redirect, withRouter } from "react-router";
 
 class ContentContainer extends React.Component {
   componentDidMount() {
-    debugger;
     let userId = this.props.match.params.userId;
     if (!userId) {
       userId = 9629;
     }
-    userAPI.getUser(userId).then((data) => {
-      this.props.setProfile(data);
-    });
+    this.props.getUsersThunk(userId);
   }
   render() {
+    if (!this.props.isAuth) return <Redirect to="login" />;
     return <Content {...this.props} />;
   }
 }
@@ -26,6 +28,7 @@ let mapStateToProps = (state) => {
     usersPosts: state.profilePage.usersPosts,
     userNewPost: state.profilePage.userNewPost,
     profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth,
   };
 };
 
@@ -35,11 +38,13 @@ let mapDispatchToProps = (dispatch) => {
       dispatch(AddPost());
     },
     UpdateNewPost: (body) => {
-      let text = body.target.value;
-      dispatch(UpdateNewPost(text));
+      dispatch(UpdateNewPost(body.target.value));
     },
     setProfile: (profile) => {
       dispatch(setProfile(profile));
+    },
+    getUsersThunk: (userId) => {
+      dispatch(getUsersThunk(userId));
     },
   };
 };
