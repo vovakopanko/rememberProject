@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Content.module.css";
 import Posts from "./Posts/Posts";
 import Preloader from "./../Preloader/Preloader";
+import ContentStatus from "./ContentStatus";
 
 let Content = ({
   AddPost,
@@ -19,6 +20,7 @@ let Content = ({
       <div>
         <img src={profile.photos.large} alt="photoUser" />
       </div>
+      <ContentStatus status={"Welcome"}/>
       <div>
         <b>Полное имя: </b>
         {profile.fullName}
@@ -33,11 +35,10 @@ let Content = ({
       </div>
       <div>
         <b>В поисках работы: </b>
-        {profile.lookingForAJob?"В активном поиске":"Работаю"}
+        {profile.lookingForAJob ? "В активном поиске" : "Работаю"}
       </div>
       <div>
         <b>Социальные сети: </b>
-        
       </div>
       <div className={s.content__wall}>
         <b>Your Wall:</b>

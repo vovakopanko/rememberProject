@@ -14,8 +14,9 @@ import { withRouter } from "react-router";
 class ContentContainer extends React.Component {
   componentDidMount() {
     let userId = this.props.match.params.userId;
+    
     if (!userId) {
-      userId = 9629;
+      userId = this.props.id;
     }
     this.props.getUsersThunk(userId);
   }
@@ -29,6 +30,7 @@ let mapStateToProps = (state) => {
     usersPosts: state.profilePage.usersPosts,
     userNewPost: state.profilePage.userNewPost,
     profile: state.profilePage.profile,
+    id: state.auth.id,
   };
 };
 
