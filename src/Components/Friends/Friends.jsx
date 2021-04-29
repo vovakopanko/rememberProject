@@ -20,7 +20,7 @@ let Friends = ({
   for (let i = 1; i <= pageCount; i++) {
     pages.push(i);
   }
-  
+
   return (
     <div className={s.friends}>
       {isFetching ? (
@@ -28,7 +28,7 @@ let Friends = ({
       ) : (
         <div>
           {userFriends.map((name) => (
-            <div className={s.friends__block} key={name.id}>
+            <div className={s.friends__block} key={name.id} >
               <div>
                 NAME: <b>{name.name}</b>
               </div>
@@ -77,7 +77,7 @@ let Friends = ({
           <div className={s.friends__pagination}>
             {pages.map((p) => {
               return (
-                <span
+                <span key={p}
                   onClick={() => getCurrentPage(p)}
                   className={currentPage === p ? s.friends__activPage : " "}
                 >

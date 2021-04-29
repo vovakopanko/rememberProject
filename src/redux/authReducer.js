@@ -34,7 +34,6 @@ export const setUserLogin = () => {
     .then((data) => {
       if(data.resultCode === 0){
       let { id, email, login } = data.data;
-      console.warn(data);
       dispatch(setUserData(id, email, login));
     }
     });

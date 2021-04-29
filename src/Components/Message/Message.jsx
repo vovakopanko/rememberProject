@@ -9,7 +9,7 @@ class Message extends React.Component {
         <div className={s.app__header_title}>New Message:</div>
         <div className={s.app__header_names}>
           {this.props.usersNames.map((name) => (
-            <div className={s.app__header_name}>
+            <div className={s.app__header_name} key={name.id}>
               <NavLink
                 to={"/message/" + name.id}
                 activeClassName={s.activeLink}

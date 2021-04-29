@@ -10,6 +10,9 @@ let Content = ({
   userNewPost,
   usersPosts,
   profile,
+  updateStatusThunk,
+  getStatusThunk,
+  status,
 }) => {
   if (!profile) {
     return <Preloader />;
@@ -20,7 +23,7 @@ let Content = ({
       <div>
         <img src={profile.photos.large} alt="photoUser" />
       </div>
-      <ContentStatus status={"Welcome"}/>
+      <ContentStatus status={status} updateStatusThunk={updateStatusThunk} getStatusThunk={getStatusThunk}/>
       <div>
         <b>Полное имя: </b>
         {profile.fullName}
