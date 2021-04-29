@@ -19,6 +19,14 @@ class FriendsContainer extends React.Component {
     this.props.getUserThunkCreator(pageNumber, this.props.pageSize);
   };
 
+  componentDidUpdate(prevProps, prevStatus) {
+    if (prevProps.status !== this.props.status) {
+      this.setState({
+        status: this.props.status,
+      });
+    }
+  }
+
   render() {
     return (
       <Friends
@@ -48,9 +56,13 @@ let mapStateToProps = (state) => {
   };
 };
 
-export default compose(connect(mapStateToProps, {
-  togleIsBlockButton,
-  getUserThunkCreator,
-  deleteUsersThunkCreator,
-  postUsersThunkCreator,
-}),withRouter,withAuthRedirect)(FriendsContainer)
+export default compose(
+  connect(mapStateToProps, {
+    togleIsBlockButton,
+    getUserThunkCreator,
+    deleteUsersThunkCreator,
+    postUsersThunkCreator,
+  }),
+  withRouter,
+  withAuthRedirect
+)(FriendsContainer);
