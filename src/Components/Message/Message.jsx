@@ -1,9 +1,31 @@
 import React from "react";
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Field, reduxForm } from "redux-form";
 import s from "./Message.module.css";
+
+const MessageForm = ({ handleSubmit }) => {
+  debugger;
+  return (
+    <form onSubmit={handleSubmit}>
+      <Field
+        component={"textarea"}
+        name={"Message"}
+        placeholder={"Write your message"}
+      />
+      <div>
+        <button>Send message</button>
+      </div>
+    </form>
+  );
+};
+
+const MessageReduxForm = reduxForm({ form: "message" })(MessageForm);
 
 class Message extends React.Component {
   render() {
+    const onChange = (messages) => {
+      this.props.addMessageAC(messages.Message);
+    };
     return (
       <div className={s.app__header}>
         <div className={s.app__header_title}>New Message:</div>
@@ -25,15 +47,9 @@ class Message extends React.Component {
               <div>{message.message}</div>
             </div>
           ))}
-          <div>
-            <textarea
-              onChange={this.props.onChangeData}
-              value={this.props.userNewMessage}
-            ></textarea>
-            <div>
-              <button onClick={this.props.messageData}>Send message</button>
-            </div>
-          </div>
+          <MessageReduxForm
+            onSubmit={onChange}
+          />
         </div>
       </div>
     );

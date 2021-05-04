@@ -1,5 +1,4 @@
 const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_NEW_MESSAGE = "UPDATE-NEW-MESSAGE";
 
 const initialstate = {
   usersNames: [
@@ -15,8 +14,7 @@ const initialstate = {
         "At me All right. I'm worked more time, because don;t called you",
       id: "3",
     },
-  ],
-  userNewMessage: "Write your message...",
+  ]
 };
 
 const messageReducer = (state = initialstate, action) => {
@@ -28,26 +26,15 @@ const messageReducer = (state = initialstate, action) => {
           ...state.usersMessages,
           {
             id: "4",
-            message: state.userNewMessage,
+            message: action.newMessageBody,
           },
-        ],
-        userNewMessage: "",
-      };
-    case UPDATE_NEW_MESSAGE:
-      return {
-        ...state,
-        userNewMessage: action.updateText,
+        ]
       };
     default:
       return state;
   }
 };
 
-export const addMessageAC = () => ({ type: ADD_MESSAGE });
-
-export const updateNewMessageAC = (text) => ({
-  type: UPDATE_NEW_MESSAGE,
-  updateText: text,
-});
+export const addMessageAC = (newMessageBody) => ({ type: ADD_MESSAGE , newMessageBody});
 
 export default messageReducer;

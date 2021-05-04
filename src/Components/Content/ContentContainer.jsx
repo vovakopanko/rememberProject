@@ -2,7 +2,6 @@ import {
   AddPost,
   getUsersThunk,
   setProfile,
-  UpdateNewPost,
   getStatusThunk,
   updateStatusThunk,
 } from "../../redux/profileReducer";
@@ -41,7 +40,6 @@ class ContentContainer extends React.Component {
         <Wall
           AddPost={this.props.AddPost}
           UpdateNewPost={this.props.UpdateNewPost}
-          userNewPost={this.props.userNewPost}
           usersPosts={this.props.usersPosts}
         />
       </div>
@@ -52,7 +50,6 @@ class ContentContainer extends React.Component {
 let mapStateToProps = (state) => {
   return {
     usersPosts: state.profilePage.usersPosts,
-    userNewPost: state.profilePage.userNewPost,
     profile: state.profilePage.profile,
     id: state.auth.id,
     status: state.profilePage.status,
@@ -61,11 +58,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    AddPost: () => {
-      dispatch(AddPost());
-    },
-    UpdateNewPost: (body) => {
-      dispatch(UpdateNewPost(body.target.value));
+    AddPost: (text) => {
+      dispatch(AddPost(text));
     },
     setProfile: (profile) => {
       dispatch(setProfile(profile));

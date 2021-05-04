@@ -1,7 +1,30 @@
 import React from "react";
+import { Field, reduxForm } from "redux-form";
 import Posts from "./Posts/Posts";
 
-export const Wall = ({ AddPost, UpdateNewPost, userNewPost, usersPosts }) => {
+const WallForm = ({handleSubmit}) => {
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <Field
+          component={"textarea"}
+          name={"Message"}
+          placeholder="Write your message"
+        />
+      </div>
+      <div>
+        <button>SEND POST</button>
+      </div>
+    </form>
+  );
+};
+
+const WallReduxForm = reduxForm({ form: "wallposts" })(WallForm);
+
+export const Wall = ({ usersPosts, AddPost }) => {
+  const onSubmit = (FormData) => {
+    return AddPost(FormData.Message);
+  };
   return (
     <div>
       <b>Your Wall:</b>
@@ -13,12 +36,7 @@ export const Wall = ({ AddPost, UpdateNewPost, userNewPost, usersPosts }) => {
           comment={post.comment}
         />
       ))}
-      <div>
-        <textarea value={userNewPost} onChange={UpdateNewPost} />
-      </div>
-      <div>
-        <button onClick={AddPost}>SEND POST</button>
-      </div>
+      <WallReduxForm onSubmit={onSubmit} />
     </div>
   );
 };
