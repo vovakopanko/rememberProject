@@ -1,29 +1,19 @@
 import React from "react";
 import s from "./Content.module.css";
-import Posts from "./Posts/Posts";
-import Preloader from "./../Preloader/Preloader";
 import ContentStatus from "./ContentStatus";
 
-let Content = ({
-  AddPost,
-  UpdateNewPost,
-  userNewPost,
-  usersPosts,
-  profile,
-  updateStatusThunk,
-  getStatusThunk,
-  status,
-}) => {
-  if (!profile) {
-    return <Preloader />;
-  }
+let Content = ({ profile, updateStatusThunk, getStatusThunk, status }) => {
   return (
-    <div className={s.app__header}>
+    <div >
       <div>WELCOME DEAR</div>
       <div>
         <img src={profile.photos.large} alt="photoUser" />
       </div>
-      <ContentStatus status={status} updateStatusThunk={updateStatusThunk} getStatusThunk={getStatusThunk}/>
+      <ContentStatus
+        status={status}
+        updateStatusThunk={updateStatusThunk}
+        getStatusThunk={getStatusThunk}
+      />
       <div>
         <b>Полное имя: </b>
         {profile.fullName}
@@ -43,24 +33,7 @@ let Content = ({
       <div>
         <b>Социальные сети: </b>
       </div>
-      <div className={s.content__wall}>
-        <b>Your Wall:</b>
-        {usersPosts.map((post) => (
-          <Posts
-            key={post.id}
-            name={post.name}
-            age={post.age}
-            comment={post.comment}
-          />
-        ))}
-      </div>
-
-      <div>
-        <textarea value={userNewPost} onChange={UpdateNewPost} />
-      </div>
-      <div>
-        <button onClick={AddPost}>SEND POST</button>
-      </div>
+      <div className={s.content__wall}></div>
     </div>
   );
 };

@@ -1,22 +1,35 @@
 import React from "react";
+import { Field, reduxForm } from "redux-form";
 import s from "./Login.module.css";
 
-const Login = () => {
+const LoginForm = (props) => {
   return (
-    <div className={s.app__header}>
-      LOGIN:
-      <div>
-        <div>Login:</div>
-        <textarea placeholder="Write your login" />
-      </div>
+    <form onSubmit={props.handleSubmit}>
+      <div>Login:</div>
+        <Field component={'input'} name={'Login'} placeholder={'Write your login'}/>
       <div>
         <div>Password:</div>
-        <textarea placeholder="Write your password"/>
+        <Field placeholder={'Write your password'} component={'input'} type={'password'} name={'Password'}/>
+      </div>
+      <div>
+        <Field component={'input'} type={"checkbox"} name={'CheckRememberMe'}/>
+        Remember me?
       </div>
       <button>Enter</button>
       <button>Registration</button>
-    </div>
+    </form>
   );
 };
 
+const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
+
+const Login = () => {
+  const onSubmit = (formData)=>{return console.log(formData)}
+  return (
+    <div className={s.app__header}>
+      <h1>LOGIN:</h1>
+      <LoginReduxForm onSubmit={onSubmit}/>
+    </div>
+  );
+};
 export default Login;
