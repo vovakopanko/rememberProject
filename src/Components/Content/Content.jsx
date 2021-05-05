@@ -5,7 +5,6 @@ import ContentStatus from "./ContentStatus";
 let Content = ({ profile, updateStatusThunk, getStatusThunk, status }) => {
   return (
     <div >
-      <div>WELCOME DEAR</div>
       <div>
         <img src={profile.photos.large} alt="photoUser" />
       </div>

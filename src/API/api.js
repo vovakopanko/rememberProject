@@ -10,13 +10,13 @@ let instance = axios.create({
 
 export const userAPI = {
   getUser(userId) {
-    return profileAPI.getUser(userId)
+    return profileAPI.getUser(userId);
   },
   getUsers(currentPage, pageSize) {
     return instance
       .get(`users?page=${currentPage}&count=${pageSize}`)
       .then((Response) => Response.data);
-  }
+  },
 };
 
 export const profileAPI = {
@@ -24,18 +24,28 @@ export const profileAPI = {
     return instance.get(`profile/${userId}`).then((Response) => Response.data);
   },
   getStatus(userId) {
-    return instance.get(`/profile/status/${userId}`).then(Response => Response)
+    return instance
+      .get(`/profile/status/${userId}`)
+      .then((Response) => Response);
   },
   updateStatus(body) {
-    return instance.put(`/profile/status`, {status:body}).then(Response => Response)
-  }
-}
+    return instance
+      .put(`/profile/status`, { status: body })
+      .then((Response) => Response);
+  },
+};
 
 export const meAPI = {
   me() {
-    return instance.get("auth/me").then((Response) => {
-      return Response.data;
-    });
+    return instance.get("auth/me").then((Response) => Response.data);
+  },
+  logIn(email, password, rememberMe = false) {
+    return instance
+      .post("auth/login", { email, password, rememberMe })
+      .then((Response) => Response.data);
+  },
+  logOut() {
+    return instance.delete("auth/login").then((Response) => Response.data);
   },
 };
 

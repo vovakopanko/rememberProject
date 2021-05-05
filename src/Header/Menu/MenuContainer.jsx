@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Menu from "./Menu";
-import { setUserLogin } from "../../redux/authReducer";
+import { setUserLogin, LogoutThunk } from "../../redux/authReducer";
 
 class MenuContainer extends React.Component {
   componentDidMount() {
@@ -10,7 +10,7 @@ class MenuContainer extends React.Component {
   render() {
     return (
       <div>
-        <Menu login={this.props.login} />
+        <Menu login={this.props.login} LogoutThunk={this.props.LogoutThunk}/>
       </div>
     );
   }
@@ -19,6 +19,7 @@ class MenuContainer extends React.Component {
 let mapStateToProps = (state) => ({
   login: state.auth.login,
   id: state.auth.id,
+  isAuth: state.auth.isAuth,
 });
 
-export default connect(mapStateToProps, { setUserLogin })(MenuContainer);
+export default connect(mapStateToProps, { setUserLogin, LogoutThunk})(MenuContainer);

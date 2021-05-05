@@ -1,8 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
+import {LoginThunk} from "./../../redux/authReducer"
 import { requiredLogin } from "../../validators/validator";
 import { Input } from "../FormsControls/FormsControls";
 import s from "./Login.module.css";
+import { Redirect } from "react-router";
 
 const LoginForm = (props) => {
   return (
@@ -17,6 +20,9 @@ const LoginForm = (props) => {
         <Field component={Input} type={"checkbox"} name={'CheckRememberMe'}/>
         Remember me?
       </div>
+      {props.error && <div className={s.errorIcon}>
+        {props.error}
+      </div>}
       <button>Enter</button>
       <button>Registration</button>
     </form>
@@ -25,8 +31,13 @@ const LoginForm = (props) => {
 
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 
-const Login = () => {
-  const onSubmit = (formData)=>{return console.log(formData)}
+const Login = (props) => {
+  const onSubmit = (formData)=>{return props.LoginThunk(formData.Login,formData.Password,formData.CheckRememberMe)}
+  
+if (props.isAuth){
+  return <Redirect to="/profile"/>
+}
+
   return (
     <div className={s.app__header}>
       <h1>LOGIN:</h1>
@@ -34,4 +45,11 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+
+let setStateToProps = (state) => {
+  return {
+    isAuth: state.auth.isAuth
+  }
+}
+
+export default connect(setStateToProps, {LoginThunk} )(Login);
