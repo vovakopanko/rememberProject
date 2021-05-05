@@ -1,14 +1,19 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
+import { maxLengthCreator, required } from "../../validators/validator";
+import { Textarea } from "../FormsControls/FormsControls";
 import Posts from "./Posts/Posts";
 
+const maxLength45 = maxLengthCreator(45)
 const WallForm = ({handleSubmit}) => {
+  
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <Field
-          component={"textarea"}
+          component={Textarea}
           name={"Message"}
+          validate={[required,maxLength45]}
           placeholder="Write your message"
         />
       </div>

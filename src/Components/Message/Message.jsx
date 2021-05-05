@@ -1,14 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
+import { maxLengthCreator, required } from "../../validators/validator";
+import { Textarea } from "../FormsControls/FormsControls";
 import s from "./Message.module.css";
 
+const maxLength70 = maxLengthCreator(70)
+
 const MessageForm = ({ handleSubmit }) => {
-  debugger;
   return (
     <form onSubmit={handleSubmit}>
       <Field
-        component={"textarea"}
+        component={Textarea}
+        validate={[required,maxLength70]}
         name={"Message"}
         placeholder={"Write your message"}
       />
