@@ -9,6 +9,15 @@ import {
   deleteUsersThunkCreator,
   postUsersThunkCreator,
 } from "../../redux/friendsReducer";
+import {
+  getCurrentPage,
+  getFriends,
+  getIsAuth,
+  getIsButtonLock,
+  getIsFetching,
+  getPageSize,
+  getTotalFriends,
+} from "../../redux/friendsSelectors";
 import Friends from "./Friends";
 
 class FriendsContainer extends React.Component {
@@ -44,15 +53,27 @@ class FriendsContainer extends React.Component {
   }
 }
 
+// let mapStateToProps = (state) => {
+//   return {
+//     userFriends: state.friendsPage.userFriends,
+//     totalUsersCount: state.friendsPage.totalUsersCount,
+//     pageSize: state.friendsPage.pageSize,
+//     currentPage: state.friendsPage.currentPage,
+//     isFetching: state.friendsPage.isFetching,
+//     isButtonLock: state.friendsPage.isButtonLock,
+//     isAuth: state.auth.isAuth,
+//   };
+// };
+
 let mapStateToProps = (state) => {
   return {
-    userFriends: state.friendsPage.userFriends,
-    totalUsersCount: state.friendsPage.totalUsersCount,
-    pageSize: state.friendsPage.pageSize,
-    currentPage: state.friendsPage.currentPage,
-    isFetching: state.friendsPage.isFetching,
-    isButtonLock: state.friendsPage.isButtonLock,
-    isAuth: state.auth.isAuth,
+    userFriends: getFriends(state),
+    totalUsersCount: getTotalFriends(state),
+    pageSize: getPageSize(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    isButtonLock: getIsButtonLock(state),
+    isAuth: getIsAuth(state),
   };
 };
 
