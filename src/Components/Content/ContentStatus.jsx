@@ -4,7 +4,7 @@ class ContentStaus extends React.Component {
 
   state = {
     editMode: true,
-    status: this.props.status,
+    status: this.props.getStatus,
   };
 
   activatedEditMode = () => {
@@ -25,6 +25,14 @@ class ContentStaus extends React.Component {
       status: e.currentTarget.value
     })
   }
+componentDidUpdate(prevProps,){
+  if(prevProps.status !== this.props.getStatus) {
+    this.setState({
+      status: this.props.getStatus
+    })
+  }
+}
+
   render() {
     return (
       <>

@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Menu.module.css";
 
-let Menu = ({ login, LogoutThunk, isAuth }) => {
+let Menu = ({ login, LogoutThunk}) => {
   return (
     <div className={s.menu__items}>
       {" "}

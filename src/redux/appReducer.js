@@ -1,6 +1,6 @@
 import { setUserLogin } from "./authReducer";
 
-const SET_INITIALAIZED = "SET-INITIALAIZED";
+const SET_INITIALAIZED = "rememberMe/src/redux/appReducers/setInitialaized";
 
 const initialstate = {
   initialaized: false,

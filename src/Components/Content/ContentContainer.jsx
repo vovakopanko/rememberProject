@@ -34,7 +34,6 @@ class ContentContainer extends React.Component {
           {...this.props}
           profile={this.props.profile}
           updateStatusThunk={this.props.updateStatusThunk}
-          getStatusThunk={this.props.getStatusThunk}
           status={this.props.status}
         />
         <Wall

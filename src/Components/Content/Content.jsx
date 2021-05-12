@@ -1,17 +1,16 @@
 import React from "react";
 import s from "./Content.module.css";
-import ContentStatus from "./ContentStatus";
+import ContentStatusHOOK from "./ContentStatusHOOK";
 
-let Content = ({ profile, updateStatusThunk, getStatusThunk, status }) => {
+let Content = ({ profile, updateStatusThunk,status }) => {
   return (
     <div >
       <div>
         <img src={profile.photos.large} alt="photoUser" />
       </div>
-      <ContentStatus
-        status={status}
+      <ContentStatusHOOK
+        getStatus={status}
         updateStatusThunk={updateStatusThunk}
-        getStatusThunk={getStatusThunk}
       />
       <div>
         <b>Полное имя: </b>

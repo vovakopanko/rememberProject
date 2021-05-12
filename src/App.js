@@ -40,11 +40,9 @@ class App extends React.Component {
   }
 }
 
-let mapStateToProps = (state) => {
-  return {
+let mapStateToProps = (state) => ({
     initialaized: state.app.initialaized,
-  };
-};
+});
 
 export default compose(
   withRouter,
