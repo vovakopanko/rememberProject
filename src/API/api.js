@@ -26,12 +26,12 @@ export const profileAPI = {
   getStatus(userId) {
     return instance
       .get(`/profile/status/${userId}`)
-      .then((Response) => Response);
+      .then((Response) => Response.data);
   },
   updateStatus(body) {
     return instance
       .put(`/profile/status`, { status: body })
-      .then((Response) => Response);
+      .then((Response) => Response.data);
   },
 };
 

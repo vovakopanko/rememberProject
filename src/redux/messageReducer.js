@@ -1,4 +1,4 @@
-const ADD_MESSAGE = "ADD-MESSAGE";
+const ADD_MESSAGE = "rememberMe/src/redux/messageReducers/addMessage";
 
 const initialstate = {
   usersNames: [

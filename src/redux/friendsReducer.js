@@ -1,12 +1,12 @@
 import { subscribeAPI, userAPI } from "../API/api";
 
-let FOLLOW = "FOLLOW_USER";
-let UNFOLLOW = "UNFOLLOW_USER";
-let SET_USERS = "SET_USERS";
-let SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
-let QUANTITYUSER = "QUANTIT-USER";
-let TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
-let WAITING_REQUEST = "WAITING-REQUEST";
+let FOLLOW = "rememberMe/src/redux/friendsReducers/followUser";
+let UNFOLLOW = "rememberMe/src/redux/friendsReducers/unFollowUser";
+let SET_USERS = "rememberMe/src/redux/friendsReducers/setUsers";
+let SET_CURRENT_PAGE = "rememberMe/src/redux/friendsReducers/setCurrentPage";
+let QUANTITYUSER = "rememberMe/src/redux/friendsReducers/quantityUser";
+let TOGGLE_IS_FETCHING = "rememberMe/src/redux/friendsReducers/toggleIsFetching";
+let WAITING_REQUEST = "rememberMe/src/redux/friendsReducers/waitingRequest";
 
 const initialstate = {
   userFriends: [],
@@ -118,40 +118,32 @@ export let togleIsBlockButton = (booleanData, userId) => ({
   userId,
 });
 
-export const getUserThunkCreator = (currentPage, pageSize) => {
-  return (dispatch) => {
+export const getUserThunkCreator = (currentPage, pageSize) => 
+  async (dispatch) => {
     dispatch(togleIsFetching(true));
-    userAPI.getUsers(currentPage, pageSize).then((data) => {
+    let data = await userAPI.getUsers(currentPage, pageSize)
       dispatch(setCurrentPage(currentPage))
       dispatch(togleIsFetching(false));
       dispatch(setUsers(data.items));
       dispatch(usersQuantity(data.totalCount));
-    });
   };
-};
 
-export const deleteUsersThunkCreator = (userId) => {
-  return (dispatch) => {
+export const deleteUsersThunkCreator = (userId) => async (dispatch) => {
     dispatch(togleIsBlockButton(true, userId));
-    subscribeAPI.deleteUser(userId).then((data) => {
+    let data = await subscribeAPI.deleteUser(userId)
       dispatch(togleIsBlockButton(false, userId));
       if (data.resultCode === 0) {
         dispatch(unfollow(userId));
       }
-    });
   };
-};
 
-export const postUsersThunkCreator = (userId) => {
-  return (dispatch) => {
+export const postUsersThunkCreator = (userId) => async (dispatch) => {
     dispatch(togleIsBlockButton(true, userId));
-    subscribeAPI.postUser(userId).then((data) => {
+    let data = await subscribeAPI.postUser(userId)
       dispatch(togleIsBlockButton(false, userId));
       if (data.resultCode === 0) {
         dispatch(follow(userId));
       }
-    });
-  };
 };
 
 export default friendsReducer;
