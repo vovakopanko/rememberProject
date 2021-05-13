@@ -20,6 +20,11 @@
   margin-left: 5px;
 }
 
+.friends__pagination span:hover{
+  color: orange;
+}
+
 .friends__activPage{
   font-weight: bold;
+  color: thistle;
 }

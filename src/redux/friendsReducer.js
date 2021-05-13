@@ -13,7 +13,7 @@ const initialstate = {
   userFriends: [],
   totalUsersCount: 0,
   pageSize: 5,
-  currentPage: 2,
+  currentPage: 1,
   isFetching: false,
   isButtonLock: [],
 };
