@@ -60,6 +60,8 @@ export const setStatus = (status) => ({
   status,
 });
 
+// = (userId) - замыкание
+ 
 export const getUsersThunk = (userId) => async (dispatch) => {
   let data = await userAPI.getUser(userId);
   dispatch(setProfile(data));
