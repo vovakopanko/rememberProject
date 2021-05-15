@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import s from "./Friends.module.css";
 
 const Pagination = ({
@@ -6,6 +6,7 @@ const Pagination = ({
   pageSize,
   currentPage,
   getCurrentPage,
+  portionSize = 6,
 }) => {
   let pageCount = Math.ceil(totalUsersCount / pageSize);
   let pages = [];
@@ -13,19 +14,48 @@ const Pagination = ({
     pages.push(i);
   }
 
+  let portionCount = Math.ceil(pageCount / portionSize);
+  let [portionNumber, setPortionNumber] = useState(1);
+  let leftPorionNumber = (portionNumber - 1) * portionSize + 1;
+  let rightPortionNumber = portionNumber * portionSize;
+
   return (
-          <div className={s.friends__pagination}>
-            {pages.map((p) => {
-              return (
-                <span key={p}
-                  onClick={() => getCurrentPage(p)}
-                  className={currentPage === p ? s.friends__activPage : " "}
-                >
-                  {p}
-                </span>
-              );
-            })}
-          </div>
+    <div>
+      {portionNumber > 1 && (
+        <button
+          onClick={() => {
+            setPortionNumber(portionNumber - 1);
+          }}
+        >
+          PREV
+        </button>
+      )}
+
+      <span className={s.friends__pagination}>
+        {pages
+          .filter((p) => p >= leftPorionNumber && p <= rightPortionNumber)
+          .map((p) => {
+            return (
+              <span
+                key={p}
+                onClick={() => getCurrentPage(p)}
+                className={currentPage === p ? s.friends__activPage : " "}
+              >
+                {p}
+              </span>
+            );
+          })}
+      </span>
+      {portionCount > portionNumber && (
+        <button
+          onClick={() => {
+            setPortionNumber(portionNumber + 1);
+          }}
+        >
+          NEXT
+        </button>
+      )}
+    </div>
   );
 };
 

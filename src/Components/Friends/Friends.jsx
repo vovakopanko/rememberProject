@@ -30,14 +30,14 @@ let Friends = ({
               key={name.id}
             />
           ))}
-          <Pagination
-            totalUsersCount={totalUsersCount}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            getCurrentPage={getCurrentPage}
-          />
         </div>
       )}
+      <Pagination
+        totalUsersCount={totalUsersCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        getCurrentPage={getCurrentPage}
+      />
     </div>
   );
 };
