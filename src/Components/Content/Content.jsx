@@ -1,13 +1,29 @@
 import React from "react";
 import s from "./Content.module.css";
 import ContentStatusHOOK from "./ContentStatusHOOK";
+import userPhoto from "./../../pictures/userPhoto.png";
 
-let Content = ({ profile, updateStatusThunk,status }) => {
+const Content = ({
+  profile,
+  updateStatusThunk,
+  status,
+  isOwner,
+  savePhoto,
+}) => {
+  const savePhotoOnServer = (e) => {
+    if (e.target.files.length) {
+      savePhoto(e.target.files[0]);
+    }
+  };
   return (
-    <div >
-      <div>
-        <img src={profile.photos.large} alt="photoUser" />
+    <div>
+      <div className={s.phhotoUser}>
+        <img
+          src={profile.photos.large != null ? profile.photos.large : userPhoto}
+          alt="photoUser"
+        />
       </div>
+      {isOwner && <input type="file" onChange={savePhotoOnServer} />}
       <ContentStatusHOOK
         getStatus={status}
         updateStatusThunk={updateStatusThunk}

@@ -4,6 +4,7 @@ import {
   setProfile,
   getStatusThunk,
   updateStatusThunk,
+  savePhoto,
 } from "../../redux/profileReducer";
 import { Wall } from "./Wall.jsx";
 import { connect } from "react-redux";
@@ -15,7 +16,7 @@ import { withRouter } from "react-router";
 import Preloader from "../Preloader/Preloader";
 
 class ContentContainer extends React.Component {
-  componentDidMount() {
+  updateInformationAboutUser() {
     let userId = this.props.match.params.userId;
 
     if (!userId) {
@@ -23,6 +24,15 @@ class ContentContainer extends React.Component {
     }
     this.props.getUsersThunk(userId);
     this.props.getStatusThunk(userId);
+  }
+  componentDidMount() {
+    this.updateInformationAboutUser();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.userId !== prevProps.match.params.userId) {
+      this.updateInformationAboutUser();
+    }
   }
   render() {
     if (!this.props.profile) {
@@ -32,6 +42,8 @@ class ContentContainer extends React.Component {
       <div>
         <Content
           {...this.props}
+          isOwner={!this.props.match.params.userId}
+          savePhoto={this.props.savePhoto}
           profile={this.props.profile}
           updateStatusThunk={this.props.updateStatusThunk}
           status={this.props.status}
@@ -55,28 +67,31 @@ let mapStateToProps = (state) => {
   };
 };
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    AddPost: (text) => {
-      dispatch(AddPost(text));
-    },
-    setProfile: (profile) => {
-      dispatch(setProfile(profile));
-    },
-    getUsersThunk: (userId) => {
-      dispatch(getUsersThunk(userId));
-    },
-    getStatusThunk: (userId) => {
-      dispatch(getStatusThunk(userId));
-    },
-    updateStatusThunk: (status) => {
-      dispatch(updateStatusThunk(status));
-    },
-  };
-};
+// let mapDispatchToProps = (dispatch) => {
+//   return {
+//     AddPost: (text) => {
+//       dispatch(AddPost(text));
+//     },
+//     setProfile: (profile) => {
+//       dispatch(setProfile(profile));
+//     },
+//     getUsersThunk: (userId) => {
+//       dispatch(getUsersThunk(userId));
+//     },
+//     getStatusThunk: (userId) => {
+//       dispatch(getStatusThunk(userId));
+//     },
+//     updateStatusThunk: (status) => {
+//       dispatch(updateStatusThunk(status));
+//     },
+//     savePhoto: (photo) => {
+//       dispatch(savePhoto(photo))
+//     }
+//   };
+// };
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, {AddPost,setProfile,getUsersThunk,getStatusThunk,updateStatusThunk,savePhoto}),
   withRouter,
   withAuthRedirect
 )(ContentContainer);

@@ -3,6 +3,7 @@ import { profileAPI, userAPI } from "../API/api";
 const ADD_POST = "rememberMe/src/redux/profileReducers/addPost";
 const SET_PROFILR = "rememberMe/src/redux/profileReducers/setProfile";
 const SET_STATUS = "rememberMe/src/redux/profileReducers/setStatus";
+const SAVE_PHOTO = "rememberMe/src/redux/profileReducers/setPhoto";
 
 const initialstate = {
   usersPosts: [
@@ -40,6 +41,11 @@ const profileReducer = (state = initialstate, action) => {
         ...state,
         status: action.status,
       };
+      case SAVE_PHOTO: 
+      return {
+        ...state,
+        profile: {...state.profile, photos: action.photos }
+      }
     default:
       return state;
   }
@@ -59,6 +65,11 @@ export const setStatus = (status) => ({
   type: SET_STATUS,
   status,
 });
+
+export const setPhoto = (photos) => ({
+  type: SAVE_PHOTO,
+  photos
+})
 
 // = (userId) - замыкание
  
@@ -104,5 +115,12 @@ export const updateStatusThunk = (status) => async (dispatch) => {
 //     })
 //   }
 // }
+
+export const savePhoto = (file) => async (dispatch) => {
+  let data = await profileAPI.setUserPhoto(file)
+  if (data.resultCode === 0) {
+    dispatch(setPhoto(data.data.photos));
+  }
+};
 
 export default profileReducer;

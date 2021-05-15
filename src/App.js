@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import Footer from "./Footer/Footer";
 import s from "./App.module.css";
 import { Route, withRouter } from "react-router-dom";
@@ -6,15 +6,17 @@ import MessageContainer from "./Components/Message/MessageContainer";
 import FriendsContainer from "./Components/Friends/FriendsContainer";
 import ContentContainer from "./Components/Content/ContentContainer";
 // import Info from "./Components/Info/Info";
-import Settings from "./Components/Settings/Settings";
+// import Settings from "./Components/Settings/Settings";
 import Login from "./Components/Login/Login";
 import { setInitialaizedApp } from "./redux/appReducer";
 import MenuContainer from "./Header/Menu/MenuContainer";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import Preloader from "./Components/Preloader/Preloader";
+import { withSuspense } from "./hoc/withSuspense";
 
 const Info = React.lazy(() => import("./Components/Info/Info"));
+const Settings = React.lazy(() => import("./Components/Settings/Settings"));
 
 class App extends React.Component {
   componentDidMount() {
@@ -32,17 +34,8 @@ class App extends React.Component {
           <Route path="/profile/:userId?" render={() => <ContentContainer />} />
           <Route path="/friends" render={() => <FriendsContainer />} />
           <Route path="/message" render={() => <MessageContainer />} />
-          <Route
-            path="/info"
-            render={() => {
-              return (
-                <Suspense fallback="Loading, wait ....">
-                  <Info />
-                </Suspense>
-              );
-            }}
-          />
-          <Route path="/settings" render={() => <Settings />} />
+          <Route path="/info" render={withSuspense(Info)} />
+          <Route path="/settings" render={withSuspense(Settings)} />
           <Route path="/login" render={() => <Login />} />
         </div>
         <Footer />

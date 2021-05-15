@@ -6,3 +6,8 @@
   .content__wall{
     padding-top: 20px;
   }
+
+  .phhotoUser img {
+    max-width: 200px;
+    max-height: 200px;
+  }
