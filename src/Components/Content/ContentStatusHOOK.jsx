@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 
-const ContentStausHOOK = ({getStatus,updateStatusThunk}) => {
+const ContentStausHOOK = ({getStatus,updateStatusThunk,isOwner}) => {
   const [editMode, setEditMode] = useState(true)
   const [status, setStatus] = useState(getStatus)
 
@@ -19,7 +19,8 @@ const ContentStausHOOK = ({getStatus,updateStatusThunk}) => {
   const onChangeStatus = (e) => {
     setStatus(e.currentTarget.value)
   }
-    return (
+  const Status = ({getStatus})=> {
+    return(
       <>
         {editMode ? (
           <div>
@@ -37,6 +38,13 @@ const ContentStausHOOK = ({getStatus,updateStatusThunk}) => {
             />
           </div>
         )}
+      </>
+    )
+  }
+    return (
+      <>
+      {isOwner?<Status getStatus={getStatus}/>:getStatus || "-----"}
+       
       </>
     );
   }

@@ -5,6 +5,7 @@ import {
   getStatusThunk,
   updateStatusThunk,
   savePhoto,
+  UpdateInformarionAboutUser,
 } from "../../redux/profileReducer";
 import { Wall } from "./Wall.jsx";
 import { connect } from "react-redux";
@@ -47,6 +48,7 @@ class ContentContainer extends React.Component {
           profile={this.props.profile}
           updateStatusThunk={this.props.updateStatusThunk}
           status={this.props.status}
+          UpdateInformarionAboutUser={this.props.UpdateInformarionAboutUser}
         />
         <Wall
           AddPost={this.props.AddPost}
@@ -91,7 +93,7 @@ let mapStateToProps = (state) => {
 // };
 
 export default compose(
-  connect(mapStateToProps, {AddPost,setProfile,getUsersThunk,getStatusThunk,updateStatusThunk,savePhoto}),
+  connect(mapStateToProps, {AddPost,setProfile,getUsersThunk,getStatusThunk,updateStatusThunk,savePhoto,UpdateInformarionAboutUser}),
   withRouter,
   withAuthRedirect
 )(ContentContainer);

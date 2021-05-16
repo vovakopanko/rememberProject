@@ -43,6 +43,9 @@ export const profileAPI = {
       }
     })
     .then((Response)=>Response.data);
+  },
+  UpdateInfo(profile) {
+    return instance.put(`/profile`,profile);
   }
 };
 
