@@ -16,6 +16,7 @@ class MenuContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
   login: state.auth.login,
+  captchaUrl: state.auth.captchaUrl
 });
 
 export default connect(mapStateToProps, { LogoutThunk})(MenuContainer);

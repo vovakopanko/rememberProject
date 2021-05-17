@@ -33,29 +33,29 @@ export const profileAPI = {
       .put(`/profile/status`, { status: body })
       .then((Response) => Response.data);
   },
-  setUserPhoto(photo){
+  setUserPhoto(photo) {
     const formData = new FormData();
-    formData.append("image", photo)
+    formData.append("image", photo);
     return instance
-    .put('/profile/photo',formData, {
-      headers: {
-        'Content-Type' : 'multipart/form-data'
-      }
-    })
-    .then((Response)=>Response.data);
+      .put("/profile/photo", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((Response) => Response.data);
   },
   UpdateInfo(profile) {
-    return instance.put(`/profile`,profile);
-  }
+    return instance.put(`/profile`, profile);
+  },
 };
 
 export const meAPI = {
   me() {
     return instance.get("auth/me").then((Response) => Response.data);
   },
-  logIn(email, password, rememberMe = false) {
+  logIn(email, password, rememberMe = false, captchaUrl=null) {
     return instance
-      .post("auth/login", { email, password, rememberMe })
+      .post("auth/login", { email, password, rememberMe, captchaUrl })
       .then((Response) => Response.data);
   },
   logOut() {
@@ -69,5 +69,13 @@ export const subscribeAPI = {
   },
   postUser(id) {
     return instance.post(`follow/${id}`).then((Response) => Response.data);
+  },
+};
+
+export const securityAPI = {
+  getCaptchaForLogin() {
+    return instance
+      .get(`security/get-captcha-url`)
+      .then((Response) => Response.data);
   },
 };
