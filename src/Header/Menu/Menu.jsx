@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Menu.module.css";
 
-let Menu = ({ login, LogoutThunk}) => {
+const Menu = ({ login, LogoutThunk }) => {
   return (
     <div className={s.menu__items}>
       {" "}
@@ -40,6 +40,13 @@ let Menu = ({ login, LogoutThunk}) => {
         to="/settings"
       >
         Settings
+      </NavLink>
+      <NavLink
+        className={s.menu__item}
+        activeClassName={s.activeLink}
+        to="/test"
+      >
+        TestPage
       </NavLink>
       <NavLink
         className={s.loginBlock}

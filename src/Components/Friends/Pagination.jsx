@@ -24,6 +24,16 @@ const Pagination = ({
       {portionNumber > 1 && (
         <button
           onClick={() => {
+            setPortionNumber(1);
+            getCurrentPage(1)
+          }}
+        >
+          FIRST PAGE
+        </button>
+      )}
+      {portionNumber > 2 && (
+        <button
+          onClick={() => {
             setPortionNumber(portionNumber - 1);
           }}
         >
@@ -55,6 +65,18 @@ const Pagination = ({
           NEXT
         </button>
       )}
+      {
+        <button
+          onClick={() => {
+            setPortionNumber(portionCount);
+          }}
+        >
+          LAST PAGE
+        </button>
+      }
+      <div>
+        {portionNumber} at {portionCount}
+      </div>
     </div>
   );
 };

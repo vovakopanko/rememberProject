@@ -5,38 +5,37 @@ import { LoginThunk } from "./../../redux/authReducer";
 import {
   CreateField,
   required,
-  requiredLogin,
 } from "../../validators/validator";
 import s from "./Login.module.css";
 import { Redirect } from "react-router";
 import { Input } from "../../FormsControls/FormsControls";
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit,captchaUrl,error}) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>Login:</div>
-      {CreateField("login",Input, [required], "Login","Write your login")}
+      {CreateField({},Input, [required], "Login","Write your login")}
       <div>
         <div>Password:</div>
         {CreateField("password",Input, [required], "Password","Write your password")}
       </div>
       <div>
-        {CreateField("checkbox",Input,[required],"CheckRememberMe",{})}
+        {CreateField("checkbox",Input,[],"CheckRememberMe",{})}
         Remember me?
       </div>
 
-      {props.captchaUrl && <img src={props.captchaUrl} alt={"captchaUrl"} />}
+      {captchaUrl && <img src={captchaUrl} alt={"captchaUrl"} />}
       
-      {props.captchaUrl &&
+      {captchaUrl &&
         CreateField(
-          "captcha",
+          {},
           Input,
-          [requiredLogin],
-          "Symbols from image",
-          {}
+          [required],
+          "Captcha",
+          "Write letters from the picture"
         )}
 
-      {props.error && <div className={s.errorIcon}>{props.error}</div>}
+      {error && <div className={s.errorIcon}>{error}</div>}
       <button>Enter</button>
       <button>Registration</button>
     </form>
@@ -47,11 +46,11 @@ const LoginReduxForm = reduxForm({ form: "login" })(LoginForm);
 
 const Login = (props) => {
   const onSubmit = (formData) => {
-    return props.LoginThunk(
+    props.LoginThunk(
       formData.Login,
       formData.Password,
       formData.CheckRememberMe,
-      formData.captchaUrl
+      formData.Captcha
     );
   };
 

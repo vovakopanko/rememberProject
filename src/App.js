@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import Preloader from "./Components/Preloader/Preloader";
 import { withSuspense } from "./hoc/withSuspense";
+import TestPage from "./Components/TestPage/TestPage";
 
 const Info = React.lazy(() => import("./Components/Info/Info"));
 const Settings = React.lazy(() => import("./Components/Settings/Settings"));
@@ -39,6 +40,7 @@ class App extends React.Component {
           <Route path="/info" render={withSuspense(Info)} />
           <Route path="/settings" render={withSuspense(Settings)} />
           <Route path="/login" render={() => <Login />} />
+          <Route path="/test" render={()=><TestPage/>} />
           <Route path="*" render={() => <div>Error 404. NOT FOUND</div>} />
           </Switch>
         </div>

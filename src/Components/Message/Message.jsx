@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
 import { Textarea } from "../../FormsControls/FormsControls";
 import { maxLengthCreator, required } from "../../validators/validator";
-
 import s from "./Message.module.css";
 
 const maxLength70 = maxLengthCreator(70)

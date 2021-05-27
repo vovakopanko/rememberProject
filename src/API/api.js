@@ -17,6 +17,10 @@ export const userAPI = {
       .get(`users?page=${currentPage}&count=${pageSize}`)
       .then((Response) => Response.data);
   },
+  getAllFriends() {
+    return instance.get(`users?friend=${true}`)
+    .then(Response=>Response.data)
+  }
 };
 
 export const profileAPI = {
@@ -53,9 +57,10 @@ export const meAPI = {
   me() {
     return instance.get("auth/me").then((Response) => Response.data);
   },
-  logIn(email, password, rememberMe = false, captchaUrl=null) {
+  logIn(email, password, rememberMe = false, captcha=null) {
+    debugger;
     return instance
-      .post("auth/login", { email, password, rememberMe, captchaUrl })
+      .post("auth/login", { email, password, rememberMe, captcha })
       .then((Response) => Response.data);
   },
   logOut() {
@@ -68,6 +73,9 @@ export const subscribeAPI = {
     return instance.delete(`follow/${id}`).then((Response) => Response.data);
   },
   postUser(id) {
+    return instance.post(`follow/${id}`).then((Response) => Response.data);
+  },
+  getUser(id) {
     return instance.post(`follow/${id}`).then((Response) => Response.data);
   },
 };
