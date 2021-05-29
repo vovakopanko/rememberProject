@@ -9,22 +9,40 @@ let TOGGLE_IS_FETCHING =
   "rememberMe/src/redux/friendsReducers/toggleIsFetching";
 let WAITING_REQUEST = "rememberMe/src/redux/friendsReducers/waitingRequest";
 
+type userFriendsType = {
+  id: null | number;
+  name: null | string;
+  status: null | string;
+  followed: null | boolean;
+  photos: photosType;
+};
+
+type photosType = {
+  small: string | null;
+  large: string | null;
+};
+
+type initialStateType = typeof initialstate;
+
 const initialstate = {
-  userFriends: [],
+  userFriends: [] as Array<userFriendsType>,
   totalUsersCount: 0,
   pageSize: 5,
   currentPage: 1,
   isFetching: false,
-  isButtonLock: [],
+  isButtonLock: [] as Array<number>,
 };
 
-const friendsReducer = (state = initialstate, action) => {
+const friendsReducer = (
+  state = initialstate,
+  action: any
+): initialStateType => {
   switch (action.type) {
     case FOLLOW: {
       return {
         ...state,
         userFriends: [
-          ...state.userFriends.map((u) => {
+          ...state.userFriends.map((u: any) => {
             if (u.id === action.userId) {
               return { ...u, followed: true };
             }
@@ -37,7 +55,7 @@ const friendsReducer = (state = initialstate, action) => {
       return {
         ...state,
         userFriends: [
-          ...state.userFriends.map((u) => {
+          ...state.userFriends.map((u: any) => {
             if (u.id === action.userId) {
               return { ...u, followed: false };
             }
@@ -75,7 +93,7 @@ const friendsReducer = (state = initialstate, action) => {
         ...state,
         isButtonLock: action.booleanData
           ? [...state.isButtonLock, action.userId]
-          : state.isButtonLock.filter((id) => id !== action.userId),
+          : state.isButtonLock.filter((id: number) => id !== action.userId),
       };
     }
     default:
@@ -83,44 +101,83 @@ const friendsReducer = (state = initialstate, action) => {
   }
 };
 
-export let follow = (userId) => ({
+type followType = {
+  type: typeof FOLLOW;
+  userId: number;
+};
+
+export let follow = (userId: number): followType => ({
   type: FOLLOW,
   userId,
 });
 
-export let unfollow = (userId) => ({
+type unfollowType = {
+  type: typeof UNFOLLOW;
+  userId: number;
+};
+
+export let unfollow = (userId: number): unfollowType => ({
   type: UNFOLLOW,
   userId,
 });
 
-export let setUsers = (users) => ({
+type setUsersType = {
+  type: typeof SET_USERS;
+  users: number;
+};
+
+export let setUsers = (users: number): setUsersType => ({
   type: SET_USERS,
   users,
 });
 
-export let setCurrentPage = (currentPage) => ({
+type setCurrentPageType = {
+  type: typeof SET_CURRENT_PAGE;
+  currentPage: number;
+};
+
+export let setCurrentPage = (currentPage: number): setCurrentPageType => ({
   type: SET_CURRENT_PAGE,
   currentPage,
 });
 
-export let usersQuantity = (quantityUsers) => ({
+type usersQuantityType = {
+  type: typeof QUANTITYUSER;
+  quantityUsers: number;
+};
+
+export let usersQuantity = (quantityUsers: number): usersQuantityType => ({
   type: QUANTITYUSER,
   quantityUsers,
 });
 
-export let togleIsFetching = (isFetching) => ({
+type togleIsFetchingType = {
+  type: typeof TOGGLE_IS_FETCHING;
+  isFetching: boolean;
+};
+
+export let togleIsFetching = (isFetching: boolean): togleIsFetchingType => ({
   type: TOGGLE_IS_FETCHING,
   isFetching,
 });
 
-export let togleIsBlockButton = (booleanData, userId) => ({
+type togleIsBlockButtonType = {
+  type: typeof WAITING_REQUEST;
+  booleanData: boolean;
+  userId: number;
+};
+
+export let togleIsBlockButton = (
+  booleanData: boolean,
+  userId: number
+): togleIsBlockButtonType => ({
   type: WAITING_REQUEST,
   booleanData,
   userId,
 });
 
 export const getUserThunkCreator =
-  (currentPage, pageSize) => async (dispatch) => {
+  (currentPage: number, pageSize: number) => async (dispatch: any) => {
     dispatch(togleIsFetching(true));
     let data = await userAPI.getUsers(currentPage, pageSize);
     dispatch(setCurrentPage(currentPage));
@@ -130,10 +187,10 @@ export const getUserThunkCreator =
   };
 
 const postDeleteThunkCreator = async (
-  dispatch,
-  userId,
-  apiMethod,
-  thunkCreator
+  dispatch: any,
+  userId: number,
+  apiMethod: any,
+  thunkCreator: any
 ) => {
   dispatch(togleIsBlockButton(true, userId));
   let data = await apiMethod;
@@ -143,17 +200,19 @@ const postDeleteThunkCreator = async (
   }
 };
 
-export const deleteUsersThunkCreator = (userId) => async (dispatch) => {
-  let apiMethod = subscribeAPI.deleteUser(userId);
-  let thunkCreator = unfollow;
-  postDeleteThunkCreator(dispatch, userId, apiMethod, thunkCreator);
-};
+export const deleteUsersThunkCreator =
+  (userId: number) => async (dispatch: any) => {
+    let apiMethod = subscribeAPI.deleteUser(userId);
+    let thunkCreator = unfollow;
+    postDeleteThunkCreator(dispatch, userId, apiMethod, thunkCreator);
+  };
 
-export const postUsersThunkCreator = (userId) => async (dispatch) => {
-  let apiMethod = subscribeAPI.postUser(userId);
-  let thunkCreator = follow;
+export const postUsersThunkCreator =
+  (userId: number) => async (dispatch: any) => {
+    let apiMethod = subscribeAPI.postUser(userId);
+    let thunkCreator = follow;
 
-  postDeleteThunkCreator(dispatch, userId, apiMethod, thunkCreator);
-};
+    postDeleteThunkCreator(dispatch, userId, apiMethod, thunkCreator);
+  };
 
 export default friendsReducer;
