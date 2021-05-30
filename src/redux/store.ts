@@ -5,9 +5,9 @@ import authReducers from "./authReducer";
 import appReducers from "./appReducer";
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunkMiddleWare from "redux-thunk";
-import {reducer as formReducer} from "redux-form";
+import { reducer as formReducer } from "redux-form";
 
-const reducers = combineReducers({
+const rootReducers = combineReducers({
   profilePage: profileReducer,
   messagePage: messageReducer,
   friendsPage: friendsReducer,
@@ -16,8 +16,13 @@ const reducers = combineReducers({
   form: formReducer,
 });
 
-const store = createStore(reducers,applyMiddleware(thunkMiddleWare));
+type rootReducersType = typeof rootReducers;
+export type AppStateType = ReturnType<rootReducersType>;
 
+
+const store = createStore(rootReducers, applyMiddleware(thunkMiddleWare));
+
+// @ts-ignore
 window.store = store;
 
 export default store;

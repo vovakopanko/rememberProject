@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import s from "./Friends.module.css";
 
-const Pagination = ({
+type PropsType = {
+  totalUsersCount: number,
+  pageSize: number,
+  currentPage: number,
+  getCurrentPage: (pages:number)=>void,
+  portionSize: number
+}
+
+const Pagination:React.FC<PropsType> = ({
   totalUsersCount,
   pageSize,
   currentPage,
   getCurrentPage,
-  portionSize = 6,
+  portionSize,
 }) => {
   let pageCount = Math.ceil(totalUsersCount / pageSize);
   let pages = [];
@@ -24,7 +32,7 @@ const Pagination = ({
       {portionNumber > 1 && (
         <button
           onClick={() => {
-            setPortionNumber(1);
+            setPortionNumber(1)
             getCurrentPage(1)
           }}
         >

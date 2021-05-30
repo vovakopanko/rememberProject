@@ -31,6 +31,7 @@ const initialstate = {
   currentPage: 1,
   isFetching: false,
   isButtonLock: [] as Array<number>,
+  portionSize: 6,
 };
 
 const friendsReducer = (

@@ -3,7 +3,27 @@ import s from "./Friends.module.css";
 import userPhoto from "./../../pictures/userPhoto.png";
 import { NavLink } from "react-router-dom";
 
-let Friend = ({
+type PropsType = {
+  isButtonLock:Array<number>,
+  deleteUsersThunkCreator:(id:number)=>void,
+  postUsersThunkCreator:(id:number)=>void,
+  user:userFriendsType,
+}
+
+type userFriendsType = {
+  id: number;
+  name: null | string;
+  status: null | string;
+  followed: null | boolean;
+  photos: photosType;
+};
+
+type photosType = {
+  small: string | null;
+  large: string | null;
+};
+
+const Friend:React.FC<PropsType> = ({
   isButtonLock,
   deleteUsersThunkCreator,
   postUsersThunkCreator,

@@ -16,6 +16,7 @@ import {
   getIsButtonLock,
   getIsFetching,
   getPageSize,
+  getPortionSize,
   getTotalFriends,
 } from "../../redux/friendsSelectors";
 import Friends from "./Friends";
@@ -48,22 +49,11 @@ class FriendsContainer extends React.Component {
         isButtonLock={this.props.isButtonLock}
         deleteUsersThunkCreator={this.props.deleteUsersThunkCreator}
         postUsersThunkCreator={this.props.postUsersThunkCreator}
+        portionSize={this.props.portionSize}
       />
     );
   }
 }
-
-// let mapStateToProps = (state) => {
-//   return {
-//     userFriends: state.friendsPage.userFriends,
-//     totalUsersCount: state.friendsPage.totalUsersCount,
-//     pageSize: state.friendsPage.pageSize,
-//     currentPage: state.friendsPage.currentPage,
-//     isFetching: state.friendsPage.isFetching,
-//     isButtonLock: state.friendsPage.isButtonLock,
-//     isAuth: state.auth.isAuth,
-//   };
-// };
 
 let mapStateToProps = (state) => {
   return {
@@ -74,6 +64,7 @@ let mapStateToProps = (state) => {
     isFetching: getIsFetching(state),
     isButtonLock: getIsButtonLock(state),
     isAuth: getIsAuth(state),
+    portionSize: getPortionSize(state),
   };
 };
 

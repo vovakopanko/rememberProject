@@ -4,7 +4,33 @@ import Preloader from "../Preloader/Preloader";
 import Pagination from "./Pagination";
 import Friend from "./Friend";
 
-let Friends = ({
+type userFriendsType = {
+  id: number;
+  name: null | string;
+  status: null | string;
+  followed: null | boolean;
+  photos: photosType;
+};
+
+type photosType = {
+  small: string | null;
+  large: string | null;
+};
+
+type propsType = {
+  totalUsersCount:number,
+  pageSize:number,
+  userFriends:Array<userFriendsType>,
+  currentPage:number,
+  getCurrentPage:(pages:number)=>void,
+  isFetching:boolean,
+  isButtonLock: Array<number>,
+  deleteUsersThunkCreator:()=>void,
+  postUsersThunkCreator:()=>void,
+  portionSize:number
+}
+
+const Friends:React.FC<propsType> = ({
   totalUsersCount,
   pageSize,
   userFriends,
@@ -14,6 +40,7 @@ let Friends = ({
   isButtonLock,
   deleteUsersThunkCreator,
   postUsersThunkCreator,
+  portionSize,
 }) => {
   return (
     <div className={s.friends}>
@@ -37,6 +64,7 @@ let Friends = ({
         pageSize={pageSize}
         currentPage={currentPage}
         getCurrentPage={getCurrentPage}
+        portionSize={portionSize}
       />
     </div>
   );

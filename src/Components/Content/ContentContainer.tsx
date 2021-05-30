@@ -15,8 +15,23 @@ import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 import { withRouter } from "react-router";
 import Preloader from "../Preloader/Preloader";
+import { AppStateType } from "../../redux/store";
 
-class ContentContainer extends React.Component {
+type PropsType = {
+  getUsersThunk: (userId: number) => void;
+  getStatusThunk: (userId: number) => void;
+  updateStatusThunk: () => void;
+  UpdateInformarionAboutUser: () => void;
+  match: any;
+  savePhoto: any;
+  id: number;
+  profile: any;
+  status: string;
+  AddPost: () => void;
+  usersPosts: Array<any>;
+};
+
+class ContentContainer extends React.Component<PropsType> {
   updateInformationAboutUser() {
     let userId = this.props.match.params.userId;
 
@@ -30,7 +45,7 @@ class ContentContainer extends React.Component {
     this.updateInformationAboutUser();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: any) {
     if (this.props.match.params.userId !== prevProps.match.params.userId) {
       this.updateInformationAboutUser();
     }
@@ -50,17 +65,13 @@ class ContentContainer extends React.Component {
           status={this.props.status}
           UpdateInformarionAboutUser={this.props.UpdateInformarionAboutUser}
         />
-        <Wall
-          AddPost={this.props.AddPost}
-          UpdateNewPost={this.props.UpdateNewPost}
-          usersPosts={this.props.usersPosts}
-        />
+        <Wall AddPost={this.props.AddPost} usersPosts={this.props.usersPosts} />
       </div>
     );
   }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType) => {
   return {
     usersPosts: state.profilePage.usersPosts,
     profile: state.profilePage.profile,
@@ -93,7 +104,15 @@ let mapStateToProps = (state) => {
 // };
 
 export default compose(
-  connect(mapStateToProps, {AddPost,setProfile,getUsersThunk,getStatusThunk,updateStatusThunk,savePhoto,UpdateInformarionAboutUser}),
+  connect(mapStateToProps, {
+    AddPost,
+    setProfile,
+    getUsersThunk,
+    getStatusThunk,
+    updateStatusThunk,
+    savePhoto,
+    UpdateInformarionAboutUser,
+  }),
   withRouter,
   withAuthRedirect
 )(ContentContainer);
