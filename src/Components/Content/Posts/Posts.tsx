@@ -1,6 +1,12 @@
 import React from "react";
 
-let Posts = ({ name, age, comment }) => {
+type PostType = {
+  name:string,
+  age:number, 
+  comment:string
+}
+
+const Posts:React.FC<PostType>  = ({ name, age, comment })=> {
   return (
     <div>
       <div>

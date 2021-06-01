@@ -1,4 +1,7 @@
 import { subscribeAPI, userAPI } from "../API/api";
+import { ThunkAction } from "redux-thunk";
+import { AppStateType } from "./store";
+import { Dispatch } from "react";
 
 let FOLLOW = "rememberMe/src/redux/friendsReducers/followUser";
 let UNFOLLOW = "rememberMe/src/redux/friendsReducers/unFollowUser";
@@ -36,6 +39,7 @@ const initialstate = {
 
 const friendsReducer = (
   state = initialstate,
+  //Looking for an error, when using the action type, all the action code showed a warning
   action: any
 ): initialStateType => {
   switch (action.type) {
@@ -43,7 +47,7 @@ const friendsReducer = (
       return {
         ...state,
         userFriends: [
-          ...state.userFriends.map((u: any) => {
+          ...state.userFriends.map((u: userFriendsType) => {
             if (u.id === action.userId) {
               return { ...u, followed: true };
             }
@@ -56,7 +60,7 @@ const friendsReducer = (
       return {
         ...state,
         userFriends: [
-          ...state.userFriends.map((u: any) => {
+          ...state.userFriends.map((u: userFriendsType) => {
             if (u.id === action.userId) {
               return { ...u, followed: false };
             }
@@ -101,6 +105,17 @@ const friendsReducer = (
       return state;
   }
 };
+
+// Action
+
+type friendsActionType =
+  | followType
+  | unfollowType
+  | setUsersType
+  | setCurrentPageType
+  | usersQuantityType
+  | togleIsFetchingType
+  | togleIsBlockButtonType;
 
 type followType = {
   type: typeof FOLLOW;
@@ -177,8 +192,18 @@ export let togleIsBlockButton = (
   userId,
 });
 
+//Thunk
+
+type FriendsThunkAction = ThunkAction<
+  void,
+  AppStateType,
+  unknown,
+  friendsActionType
+>;
+
 export const getUserThunkCreator =
-  (currentPage: number, pageSize: number) => async (dispatch: any) => {
+  (currentPage: number, pageSize: number): FriendsThunkAction =>
+  async (dispatch) => {
     dispatch(togleIsFetching(true));
     let data = await userAPI.getUsers(currentPage, pageSize);
     dispatch(setCurrentPage(currentPage));
@@ -187,33 +212,34 @@ export const getUserThunkCreator =
     dispatch(usersQuantity(data.totalCount));
   };
 
-const postDeleteThunkCreator = async (
-  dispatch: any,
+const _postDeleteThunkCreator = async (
+  dispatch: Dispatch<friendsActionType>,
   userId: number,
   apiMethod: any,
-  thunkCreator: any
+  ActionCreator: (userId:number) => followType | unfollowType
 ) => {
   dispatch(togleIsBlockButton(true, userId));
   let data = await apiMethod;
   dispatch(togleIsBlockButton(false, userId));
   if (data.resultCode === 0) {
-    dispatch(thunkCreator(userId));
+    dispatch(ActionCreator(userId));
   }
 };
 
 export const deleteUsersThunkCreator =
-  (userId: number) => async (dispatch: any) => {
+  (userId: number): FriendsThunkAction =>
+  async (dispatch) => {
     let apiMethod = subscribeAPI.deleteUser(userId);
-    let thunkCreator = unfollow;
-    postDeleteThunkCreator(dispatch, userId, apiMethod, thunkCreator);
+    // let ActionCreator = unfollow;
+    _postDeleteThunkCreator(dispatch, userId, apiMethod, unfollow);
   };
 
 export const postUsersThunkCreator =
-  (userId: number) => async (dispatch: any) => {
+  (userId: number): FriendsThunkAction =>
+  async (dispatch) => {
     let apiMethod = subscribeAPI.postUser(userId);
-    let thunkCreator = follow;
-
-    postDeleteThunkCreator(dispatch, userId, apiMethod, thunkCreator);
+    // let ActionCreator = follow;
+    _postDeleteThunkCreator(dispatch, userId, apiMethod, follow);
   };
 
 export default friendsReducer;

@@ -5,6 +5,7 @@ import userPhoto from "./../../pictures/userPhoto.png";
 import FormData from "./FormData";
 import Preloader from "../Preloader/Preloader";
 
+
 const Content = ({
   profile,
   updateStatusThunk,
@@ -68,6 +69,7 @@ const Content = ({
   );
 };
 
+
 const UserData = ({ profile, goToEditMode, isOwner }) => {
   return (
     <div>
@@ -107,6 +109,7 @@ const UserData = ({ profile, goToEditMode, isOwner }) => {
     </div>
   );
 };
+
 
 export const Social = ({ socialTitle, socialValue }) => {
   return (

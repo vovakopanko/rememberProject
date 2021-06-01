@@ -2,7 +2,7 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { maxLengthCreator, required } from "../../validators/validator";
 import { Textarea } from "../../FormsControls/FormsControls";
-import Posts from "./Posts/Posts";
+import Posts from "./Posts/Posts.tsx";
 
 const maxLength45 = maxLengthCreator(45)
 const WallForm = ({handleSubmit}) => {

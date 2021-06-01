@@ -31,7 +31,7 @@ type initialStateType = typeof initialstate;
 
 const messageReducer = (
   state = initialstate,
-  action: any
+  action: messageActionType
 ): initialStateType => {
   switch (action.type) {
     case ADD_MESSAGE:
@@ -49,6 +49,10 @@ const messageReducer = (
       return state;
   }
 };
+
+// Action
+
+type messageActionType = addMessageACType;
 
 type addMessageACType = {
   type: typeof ADD_MESSAGE;

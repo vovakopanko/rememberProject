@@ -1,11 +1,11 @@
-// import { stopSubmit } from "redux-form";
+import { Dispatch } from "react";
 import { profileAPI, userAPI } from "../API/api";
+import { AppStateType } from "./store";
 
 const ADD_POST = "rememberMe/src/redux/profileReducers/addPost";
 const SET_PROFILR = "rememberMe/src/redux/profileReducers/setProfile";
 const SET_STATUS = "rememberMe/src/redux/profileReducers/setStatus";
 const SAVE_PHOTO = "rememberMe/src/redux/profileReducers/setPhoto";
-const SET_UPDATE_INFO = "rememberMe/src/redux/profileReducers/setUpdateInfo";
 
 type userPosts = {
   id: number;
@@ -56,7 +56,7 @@ const initialstate = {
 
 const profileReducer = (
   state = initialstate,
-  action: any
+  action: profileActionType
 ): initialstateType => {
   switch (action.type) {
     case ADD_POST:
@@ -86,17 +86,20 @@ const profileReducer = (
     case SAVE_PHOTO:
       return {
         ...state,
-        profile: { ...state.profile, photos: action.photos} as profileType,
-      };
-    case SET_UPDATE_INFO:
-      return {
-        ...state,
-        profile: action.profile,
+        profile: { ...state.profile, photos: action.photos } as profileType,
       };
     default:
       return state;
   }
 };
+
+// Action
+
+type profileActionType =
+  | setProfileType
+  | AddPostType
+  | setStatusType
+  | setPhotoType;
 
 type setProfileType = {
   type: typeof SET_PROFILR;
@@ -138,33 +141,42 @@ export const setPhoto = (photos: photosType): setPhotoType => ({
   photos,
 });
 
-export const getUsersThunk = (userId: number) => async (dispatch: any) => {
-  let data = await userAPI.getUser(userId);
-  dispatch(setProfile(data));
-};
+//Thunk
 
-export const getStatusThunk = (userId: number) => async (dispatch: any) => {
-  let data = await profileAPI.getStatus(userId);
-  dispatch(setStatus(data));
-};
+export const getUsersThunk =
+  (userId: any) => async (dispatch: Dispatch<profileActionType>) => {
+    let data = await userAPI.getUser(userId);
+    dispatch(setProfile(data));
+  };
 
-export const updateStatusThunk = (status: string) => async (dispatch: any) => {
-  let data = await profileAPI.updateStatus(status);
-  if (data.resultCode === 0) {
-    dispatch(setStatus(status));
-  }
-};
+export const getStatusThunk =
+  (userId: number) => async (dispatch: Dispatch<profileActionType>) => {
+    let data = await profileAPI.getStatus(userId);
+    dispatch(setStatus(data));
+  };
 
-export const savePhoto = (file: any) => async (dispatch: any) => {
-  let data = await profileAPI.setUserPhoto(file);
-  if (data.resultCode === 0) {
-    dispatch(setPhoto(data.data.photos));
-  }
-};
+export const updateStatusThunk =
+  (status: string) => async (dispatch: Dispatch<profileActionType>) => {
+    let data = await profileAPI.updateStatus(status);
+    if (data.resultCode === 0) {
+      dispatch(setStatus(status));
+    }
+  };
+
+export const savePhoto =
+  (file: any) => async (dispatch: Dispatch<profileActionType>) => {
+    let data = await profileAPI.setUserPhoto(file);
+    if (data.resultCode === 0) {
+      dispatch(setPhoto(data.data.photos));
+    }
+  };
+
+// Why userId null | number don't asignation with numbe ? (173 row)
+// 174 row mistake with THUNK
 
 export const UpdateInformarionAboutUser =
-  (profile: profileType) => async (dispatch: any, getState: any) => {
-    debugger;
+  (profile: profileType) =>
+  async (dispatch: any, getState: () => AppStateType) => {
     const userId = getState().auth.id;
     const data = await profileAPI.UpdateInfo(profile);
     if (data.data.resultCode === 0) {

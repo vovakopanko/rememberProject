@@ -17,15 +17,42 @@ import { withRouter } from "react-router";
 import Preloader from "../Preloader/Preloader";
 import { AppStateType } from "../../redux/store";
 
+type contactsType = {
+  skype: null | string;
+  vk: null | string;
+  facebook: null | string;
+  icq: null | string;
+  email: null | string;
+  googlePlus: null | string;
+  twitter: null | string;
+  instagram: null | string;
+  whatsApp: null | string;
+};
+
+type profileType = {
+  aboutMe: null | string;
+  contacts: null | contactsType;
+  lookingForAJob: null | boolean;
+  lookingForAJobDescription: null | string;
+  fullName: null | string;
+  userId: null | number;
+  photos: null | photosType;
+};
+
+type photosType = {
+  small: string | null;
+  large: string | null;
+};
+
 type PropsType = {
   getUsersThunk: (userId: number) => void;
   getStatusThunk: (userId: number) => void;
   updateStatusThunk: () => void;
-  UpdateInformarionAboutUser: () => void;
+  UpdateInformarionAboutUser:(formData:any)=>{then:any};
   match: any;
   savePhoto: any;
   id: number;
-  profile: any;
+  profile: Array<profileType>;
   status: string;
   AddPost: () => void;
   usersPosts: Array<any>;
