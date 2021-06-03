@@ -1,4 +1,3 @@
-import { Dispatch } from "react";
 import { stopSubmit } from "redux-form";
 import { ThunkAction } from "redux-thunk";
 import { meAPI, securityAPI } from "../API/api";
