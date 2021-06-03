@@ -1,5 +1,6 @@
 import { Dispatch } from "react";
-import { profileAPI, userAPI } from "../API/api";
+import { profileAPI } from "../API/profileAPI";
+import { userAPI } from "../API/userAPI";
 import { AppStateType } from "./store";
 
 const ADD_POST = "rememberMe/src/redux/profileReducers/addPost";
@@ -171,7 +172,7 @@ export const savePhoto =
     }
   };
 
-// Why userId null | number don't asignation with numbe ? (173 row)
+// Why userId null | number don't asignation with number ? (173 row)
 // 174 row mistake with THUNK
 
 export const UpdateInformarionAboutUser =

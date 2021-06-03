@@ -1,7 +1,8 @@
-import { Dispatch } from "react";
+import { ResultCodeEnum } from './../API/meAPI';
 import { stopSubmit } from "redux-form";
 import { ThunkAction } from "redux-thunk";
-import { meAPI, securityAPI } from "../API/api";
+import { securityAPI } from "../API/securityAPI";
+import { meAPI } from "../API/meAPI";
 import { AppStateType } from "./store";
 
 const SET_USER_DATA = "rememberMe/src/redux/authReducers/setUserData";
@@ -94,25 +95,24 @@ type AuthThunkType = ThunkAction<
 
 export const setUserLogin = (): AuthThunkType => async (dispatch) => {
   let data = await meAPI.me();
-  if (data.resultCode === 0) {
+  if (data.resultCode === ResultCodeEnum.Success) {
     let { id, email, login } = data.data;
     dispatch(setUserData(id, email, login, true));
   }
 };
 
-
 // Find information about replace type script Thunk with stopSubmit - Redux-Form
-type LoginDataType ={
-  userId: number
-}
+type LoginDataType = {
+  userId: number;
+};
 
 type LoginType = {
-    resultCode: number
-    messages: Array<number>
-    data: {
-      userId: LoginDataType
-    }
-}
+  resultCode: number;
+  messages: Array<number>;
+  data: {
+    userId: LoginDataType;
+  };
+};
 
 export const LoginThunk =
   (
@@ -120,37 +120,42 @@ export const LoginThunk =
     password: number,
     rememberMe: boolean,
     captcha: string
-  ):AuthThunkType =>
-  async (dispatch:any) => {
-    let data:LoginType = await meAPI.logIn(email, password, rememberMe, captcha);
-    if (data.resultCode === 0) {
+  ): AuthThunkType =>
+  async (dispatch: any) => {
+    let data: LoginType = await meAPI.logIn(
+      email,
+      password,
+      rememberMe,
+      captcha
+    );
+    if (data.resultCode === ResultCodeEnum.Success) {
       dispatch(setUserLogin());
     } else {
-      if (data.resultCode === 10) {
+      if (data.resultCode === ResultCodeEnum.CaptchaIsRequired) {
         dispatch(getCaptchaUrl());
       }
-      let messages = data.messages.length > 0 ? data.messages[0] : "Some Error";
+      let messages = data.messages.length > ResultCodeEnum.Success ? data.messages[0] : "Some Error";
       dispatch(stopSubmit("login", { _error: messages }));
     }
   };
 
 type LogOutType = {
-  resultCode:number
-}
+  resultCode: number;
+};
 
-export const LogoutThunk = ():AuthThunkType => async (dispatch) => {
-  let data:LogOutType = await meAPI.logOut();
-  if (data.resultCode === 0) {
+export const LogoutThunk = (): AuthThunkType => async (dispatch) => {
+  let data: LogOutType = await meAPI.logOut();
+  if (data.resultCode === ResultCodeEnum.Success) {
     dispatch(setUserData(null, null, null, false));
   }
 };
 
-type CaptchaType={
-  url:string
-}
+type CaptchaType = {
+  url: string;
+};
 
-export const getCaptchaUrl = ():AuthThunkType => async (dispatch) => {
-  const data:CaptchaType = await securityAPI.getCaptchaForLogin();
+export const getCaptchaUrl = (): AuthThunkType => async (dispatch) => {
+  const data: CaptchaType = await securityAPI.getCaptchaForLogin();
   const captchaUrl = data.url;
   dispatch(getCaptchaUrlSuccess(captchaUrl));
 };

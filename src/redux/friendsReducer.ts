@@ -1,7 +1,8 @@
-import { subscribeAPI, userAPI } from "../API/api";
+import { subscribeAPI } from "../API/subscribeAPI";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "./store";
 import { Dispatch } from "react";
+import { userAPI } from "../API/userAPI";
 
 let FOLLOW = "rememberMe/src/redux/friendsReducers/followUser";
 let UNFOLLOW = "rememberMe/src/redux/friendsReducers/unFollowUser";
