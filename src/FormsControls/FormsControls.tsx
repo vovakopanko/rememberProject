@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { Field, WrappedFieldProps } from "redux-form";
 import style from "./FormsControls.module.css";
 import { FieldValidatorsType } from "./../validators/validator"

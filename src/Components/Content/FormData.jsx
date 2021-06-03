@@ -1,7 +1,6 @@
 import React from "react";
 import { reduxForm } from "redux-form";
-import { Input, Textarea } from "../../FormsControls/FormsControls";
-import { CreateField } from "../../validators/validator";
+import { Input, Textarea,CreateField } from "../../FormsControls/FormsControls";
 import {Social} from "./Content"
 
 
