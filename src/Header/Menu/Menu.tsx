@@ -2,7 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Menu.module.css";
 
-const Menu = ({ login, LogoutThunk }) => {
+type MenuType = {
+  login: string | null, LogoutThunk: () => void
+}
+
+const Menu: React.FC<MenuType> = ({ login, LogoutThunk }) => {
   return (
     <div className={s.menu__items}>
       {" "}

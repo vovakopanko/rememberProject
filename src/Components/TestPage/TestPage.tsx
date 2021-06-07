@@ -20,7 +20,7 @@ const TestPage = () => {
     };
   }, [type]);
 
-  const mouseMoveEvent = (event) => {
+  const mouseMoveEvent = (event:any) => {
     setPosition({
       x: event.clientX,
       y: event.clientY,

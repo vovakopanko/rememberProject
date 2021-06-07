@@ -13,7 +13,7 @@ let TOGGLE_IS_FETCHING =
   "rememberMe/src/redux/friendsReducers/toggleIsFetching";
 let WAITING_REQUEST = "rememberMe/src/redux/friendsReducers/waitingRequest";
 
-type userFriendsType = {
+export type userFriendsType = {
   id: null | number;
   name: null | string;
   status: null | string;
@@ -21,7 +21,7 @@ type userFriendsType = {
   photos: photosType;
 };
 
-type photosType = {
+export type photosType = {
   small: string | null;
   large: string | null;
 };
